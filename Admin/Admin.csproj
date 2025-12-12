@@ -130,6 +130,7 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="CTHoaDon.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -209,11 +210,29 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\Css\Style.css" />
     <Content Include="Content\Css\StyleAdmin.css" />
+    <Content Include="Content\ImageSP\aolennamnau.png" />
+    <Content Include="Content\ImageSP\aolennamxam.png" />
+    <Content Include="Content\ImageSP\aolennamxanhden.png" />
+    <Content Include="Content\ImageSP\aolennunganden.png" />
+    <Content Include="Content\ImageSP\aolennungando.png" />
+    <Content Include="Content\ImageSP\aolennungannau.png" />
+    <Content Include="Content\ImageSP\aolennunganxam.png" />
+    <Content Include="Content\ImageSP\aophaonambe.png" />
+    <Content Include="Content\ImageSP\aophaonamden.png" />
+    <Content Include="Content\ImageSP\aophaonamxanhden.png" />
     <Content Include="Content\ImageSP\bgmacdinh.png" />
+    <Content Include="Content\ImageSP\caogotbe.png" />
+    <Content Include="Content\ImageSP\caogotden.png" />
+    <Content Include="Content\ImageSP\caogotdo.png" />
+    <Content Include="Content\ImageSP\gangtayden.png" />
+    <Content Include="Content\ImageSP\gangtaytrang.png" />
     <Content Include="Content\ImageSP\jeannamxanhden.png" />
     <Content Include="Content\ImageSP\jeannamxanhduong.png" />
     <Content Include="Content\ImageSP\jeannuxanhden.png" />
     <Content Include="Content\ImageSP\jeannuxanhduong.png" />
+    <Content Include="Content\ImageSP\khoacnam2den.png" />
+    <Content Include="Content\ImageSP\khoacnam2nau.png" />
+    <Content Include="Content\ImageSP\khoacnam2trang.png" />
     <Content Include="Content\ImageSP\khoacnamden.png" />
     <Content Include="Content\ImageSP\khoacnamden1.png" />
     <Content Include="Content\ImageSP\khoacnamxam1.png" />
@@ -225,11 +244,18 @@
     <Content Include="Content\ImageSP\khoacnuxanhden.png" />
     <Content Include="Content\ImageSP\khoacxam.png" />
     <Content Include="Content\ImageSP\macdinh.png" />
+    <Content Include="Content\ImageSP\mube.png" />
+    <Content Include="Content\ImageSP\muden.png" />
+    <Content Include="Content\ImageSP\muxanhla.png" />
     <Content Include="Content\ImageSP\phongttden.png" />
     <Content Include="Content\ImageSP\phongttxam.png" />
     <Content Include="Content\ImageSP\phongttxanhden.png" />
-    <Content Include="Content\ImageSP\polokesocxam.png" />
-    <Content Include="Content\ImageSP\polokesocxanh.png" />
+    <Content Include="Content\ImageSP\polokesocden.png" />
+    <Content Include="Content\ImageSP\polokesocxanhduong.png" />
+    <Content Include="Content\ImageSP\polonuden.png" />
+    <Content Include="Content\ImageSP\polonuhong.png" />
+    <Content Include="Content\ImageSP\polonutrang.png" />
+    <Content Include="Content\ImageSP\polonuxanhduong.png" />
     <Content Include="Content\ImageSP\somikecaro.png" />
     <Content Include="Content\ImageSP\tatbe.png" />
     <Content Include="Content\ImageSP\tathong.png" />
@@ -237,6 +263,11 @@
     <Content Include="Content\ImageSP\tatxanhden.png" />
     <Content Include="Content\ImageSP\tatxanhduong.png" />
     <Content Include="Content\ImageSP\thatlungnam.png" />
+    <Content Include="Content\ImageSP\ttnudo.png" />
+    <Content Include="Content\ImageSP\ttnutrang.png" />
+    <Content Include="Content\ImageSP\ttnuxanhden.png" />
+    <Content Include="Content\ImageSP\tuixachden.png" />
+    <Content Include="Content\ImageSP\tuixachdo.png" />
     <Content Include="Content\Image\banner_2.jpg" />
     <Content Include="Content\Image\brand_1.png" />
     <Content Include="Content\Image\img_caption_1.png" />
@@ -304,6 +335,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Product\ChiTietSP.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
