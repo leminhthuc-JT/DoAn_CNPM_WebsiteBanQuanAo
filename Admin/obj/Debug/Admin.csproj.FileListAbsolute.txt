@@ -160,7 +160,6 @@ C:\Users\LENOVO\DoAn_CNPM_WebsiteBanQuanAo\Admin\obj\Debug\Admin.csproj.CoreComp
 C:\Users\LENOVO\DoAn_CNPM_WebsiteBanQuanAo\Admin\obj\Debug\Admin.csproj.Up2Date
 C:\Users\LENOVO\DoAn_CNPM_WebsiteBanQuanAo\Admin\obj\Debug\Admin.dll
 C:\Users\LENOVO\DoAn_CNPM_WebsiteBanQuanAo\Admin\obj\Debug\Admin.pdb
-=======
 D:\SEM5\CNPM\DoAn1212\DoAn_CNPM_WebsiteBanQuanAo\Admin\bin\Admin.dll.config
 D:\SEM5\CNPM\DoAn1212\DoAn_CNPM_WebsiteBanQuanAo\Admin\bin\Admin.dll
 D:\SEM5\CNPM\DoAn1212\DoAn_CNPM_WebsiteBanQuanAo\Admin\bin\Admin.pdb
@@ -242,4 +241,3 @@ D:\SEM5\CNPM\DoAn1212\DoAn_CNPM_WebsiteBanQuanAo\Admin\obj\Debug\Admin.csproj.Co
 D:\SEM5\CNPM\DoAn1212\DoAn_CNPM_WebsiteBanQuanAo\Admin\obj\Debug\Admin.csproj.Up2Date
 D:\SEM5\CNPM\DoAn1212\DoAn_CNPM_WebsiteBanQuanAo\Admin\obj\Debug\Admin.dll
 D:\SEM5\CNPM\DoAn1212\DoAn_CNPM_WebsiteBanQuanAo\Admin\obj\Debug\Admin.pdb
->>>>>>> main
