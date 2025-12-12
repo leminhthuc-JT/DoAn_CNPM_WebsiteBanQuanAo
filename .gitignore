@@ -1,0 +1,7 @@
+# Bỏ qua các file tạm của Visual Studio
+.vs/
+**/bin/
+**/obj/
+*.suo
+*.user
+packages/
