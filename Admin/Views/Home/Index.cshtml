@@ -1,0 +1,268 @@
+﻿@model List<SanPham>
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .section-title {
+        width: 300px;
+        height: 50px;
+        box-shadow: 0 6px 10px rgba(0,0,0,0.4);
+        background-color: white;
+        text-align: center;
+        border-radius: 10px;
+        line-height: 50px;
+        font-weight: bold;
+        font-size: 22px;
+    }
+
+    .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 25px;
+        margin-top: 20px;
+    }
+
+    .product-card {
+        box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+        border-radius: 10px;
+        padding: 15px;
+        background: white;
+        text-align: center;
+        transition: 0.2s;
+    }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.35);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+        }
+
+        .product-card .title {
+            margin-top: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            min-height: 65px;
+            color: #000;
+        }
+
+        .product-card .price {
+            margin-top: 5px;
+            font-size: 17px;
+            font-weight: bold;
+            color: red;
+        }
+</style>
+<!--Banner-->
+
+<div style="background: linear-gradient(0, rgba(0, 0, 0, 0.4)),url('/Content/Image/main_banner.png'); width: 100%; height: 600px; background-size: cover; background-repeat: no-repeat ">
+    <div style="text-align: center; transform: translateY(250px);">
+        <div class="text-light" style=" width: 100%;">
+            <h3>
+                MORDEN FASHION
+            </h3>
+            <hr style="width: 150px; color: white; margin: 5px auto" />
+            <p>
+                "Modern fashion is not just style — it's confidence in every step."
+            </p>
+        </div>
+        <button type="button" class="btn btn-light btn-hover">KHÁM PHÁ NGAY</button>
+    </div>
+</div>
+<!--Tách-->
+<div style="width: 100%; height: 30px; background-color: black; margin-bottom: 20px"></div>
+<!--Carousel-->
+<div class="container">
+    <div class="row">
+        <div class="col-9">
+            <div id="carouselExampleAutoplaying"
+                 class="carousel slide"
+                 data-bs-ride="carousel"
+                 style="width: 100%; height: 450px; border-radius: 10px;">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="~/Content/Image/sale_1.jpg"
+                             class="d-block w-100"
+                             style="width: 100%; height: 450px; border-radius: 10px; object-fit: cover">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="~/Content/Image/sale_2.jpg"
+                             class="d-block w-100"
+                             style="width: 100%; height: 450px; border-radius: 10px; object-fit: cover">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="~/Content/Image/sale_3.jpg"
+                             class="d-block w-100"
+                             style="width: 100%; height: 450px; border-radius: 10px; object-fit: cover">
+                    </div>
+                </div>
+                <!--Button Control-->
+                <button class="carousel-control-prev"
+                        type="button"
+                        data-bs-target="#carouselExampleAutoplaying"
+                        data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"
+                          aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next"
+                        type="button"
+                        data-bs-target="#carouselExampleAutoplaying"
+                        data-bs-slide="next">
+                    <span class="carousel-control-next-icon"
+                          aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+        <div class="col-3">
+            <div>
+                <img src="~/Content/Image/sale_5.png"
+                     class="d-block w-100"
+                     style="width: 100%; height: 180px; border-radius: 10px; object-fit: cover">
+            </div>
+            <div style="margin-top: 20px;">
+                <img src="~/Content/Image/img_caption_3.png"
+                     class="d-block w-100"
+                     style="width: 100%; height: 250px; border-radius: 10px; object-fit: cover">
+            </div>
+        </div>
+    </div>
+</div>
+<!--Tách-->
+<div style="width: 100%; height: 30px; background-color: black; margin: 20px 0 "></div>
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+            <img src="~/Content/Image/brand_1.png"
+                 class="d-block w-100"
+                 style="width: 100%; height: 650px; border-radius: 10px; object-fit: cover; box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4)">
+        </div>
+        <div class="col-8" style="transform: translate(50px, 250px)">
+            <h2 style="font-weight: bold; margin-top: 30px;">JEAN FASHION</h2>
+            <p>
+                "Modern fashion is not just style — it's confidence in every step."
+            </p>
+        </div>
+
+    </div>
+</div>
+<!--Tách-->
+<div style="width: 100%; height: 30px; background-color: black; margin: 20px 0 "></div>
+<div class="container">
+    <div class="row">
+        <div class="col-3">
+            <img src="~/Content/Image/img_caption_2.png"
+                 style="height: 450px; border-radius: 10px; object-fit: cover; box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4)">
+            <div style="background-color: white; height: 240px; border-radius: 15px; transform: translateX(200px); margin-top: -300px;">
+                <img src="~/Content/Image/img_caption_4.png"
+                     style="width: 400px; height: 200px; border-radius: 10px; object-fit: cover; margin: 20px; box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4)">
+            </div>
+        </div>
+        <div class="col-9">
+            <h2 style="font-weight: bold; margin-top: 30px;">JEAN FASHION</h2>
+            <p>
+                "Modern fashion is not just style — it's confidence in every step."
+            </p>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-8" style="text-align: right; margin-top: 100px;">
+            <h2 style="font-weight: bold;">JEAN FASHION</h2>
+            <p>
+                "Modern fashion is not just style — it's confidence in every step."
+            </p>
+        </div>
+        <div class="col-4">
+            <img src="~/Content/Image/img_caption_1.png"
+                 style="width: 100%; height: 550px; border-radius: 10px; object-fit: cover; margin-top: -350px; box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4)">
+        </div>
+    </div>
+</div>
+<!--Tách-->
+<div style="width: 100%; height: 30px; background-color: black; margin: 20px 0 "></div>
+<div class="container">
+    <div class="d-flex">
+        <div style="width: 300px; height: 50px; box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4); background-color: white; text-align: center; border-radius: 10px;"><h3 style="font-weight: bold; line-height: 50px;">HOT SALE</h3></div>
+        <hr style="color: black; width: calc(100% - 300px); line-height: 50px; margin-top: 24px;" />
+    </div>
+
+    <div style="box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4); border-radius: 10px; padding: 20px; margin-top: 20px; background:white;">
+        <div class="product-grid">
+
+            @foreach (var sp in Model.Take(10))
+            {
+                <article class="product-card">
+                    <a href="#" style="text-decoration: none;">
+                        <img src="~/Content/ImageSP/@sp.anhchinh" alt="@sp.tensp" />
+
+                        <h4 class="title">@sp.tensp</h4>
+
+                        <p class="price">@string.Format("{0:N0} VND", sp.giaban)</p>
+                    </a>
+                </article>
+            }
+
+        </div>
+    </div>
+</div>
+
+<div style="width: 100%; height: 30px; background-color: black; margin: 20px 0 "></div>
+<div class="container">
+    <div class="d-flex">
+        <hr style="color: black; width: calc(100% - 300px); line-height: 50px; margin-top: 24px;" />
+        <div style="width: 300px; height: 50px; box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4); background-color: white; text-align: center; border-radius: 10px;"><h3 style="font-weight: bold; line-height: 50px;">NEW PRODUCTS</h3></div>
+    </div>
+    <div style="box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4); border-radius: 10px; padding: 20px; margin-top: 20px; background:white;">
+        <div class="product-grid">
+
+            @foreach (var sp in Model.Take(10))
+            {
+                <article class="product-card">
+                    <a href="#" style="text-decoration: none;">
+                        <img src="~/Content/ImageSP/@sp.anhchinh" alt="@sp.tensp" />
+
+                        <h4 class="title">@sp.tensp</h4>
+
+                        <p class="price">@string.Format("{0:N0} VND", sp.giaban)</p>
+                    </a>
+                </article>
+            }
+
+        </div>
+    </div>
+</div>
+<div style="width: 100%; height: 30px; background-color: black; margin: 20px 0 "></div>
+<div class="container">
+    <div class="d-flex">
+        <div style="width: 300px; height: 50px; box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4); background-color: white; text-align: center; border-radius: 10px;"><h3 style="font-weight: bold; line-height: 50px;">SUGGEST PRODUCTS</h3></div>
+        <hr style="color: black; width: calc(100% - 300px); line-height: 50px; margin-top: 24px;" />
+    </div>
+    <div style="box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4); border-radius: 10px; padding: 20px; margin-top: 20px; background:white;">
+        <div class="product-grid">
+
+            @foreach (var sp in Model.Take(10))
+            {
+                <article class="product-card">
+                    <a href="#" style="text-decoration: none;">
+                        <img src="~/Content/ImageSP/@sp.anhchinh" alt="@sp.tensp" />
+
+                        <h4 class="title">@sp.tensp</h4>
+
+                        <p class="price">@string.Format("{0:N0} VND", sp.giaban)</p>
+                    </a>
+                </article>
+            }
+
+        </div>
+    </div>
+</div>
+
+@*test*@
+

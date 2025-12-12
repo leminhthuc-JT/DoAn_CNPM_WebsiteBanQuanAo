@@ -1,0 +1,100 @@
+﻿body {
+}
+
+/* Khoảng cách dưới navbar fixed-top */
+.mt-navbar {
+    margin-top: 75px; /* chỉnh tùy theo chiều cao navbar thực tế */
+}
+
+/* Nhóm nút trên thanh menu */
+.responsive-btn-group {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+/* Nút chung */
+.btn-center {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    padding: 8px 20px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+}
+
+/* Hiệu ứng hover nhẹ */
+.btn-hover {
+    transition: all 0.2s ease;
+}
+
+.btn-hover:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
+}
+
+/* Footer */
+.footer {
+    margin-top: 40px;
+}
+
+.footer-column {
+    margin-bottom: 24px;
+}
+
+.footer-column h3 {
+    font-size: 1.05rem;
+    margin-bottom: 12px;
+}
+
+.footer a {
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+/* ====== RESPONSIVE: MÀN HÌNH NHỎ ≤ 430px ====== */
+
+@media (max-width: 430px) {
+
+    /* Giảm khoảng cách dưới navbar một chút cho màn nhỏ */
+    .mt-navbar {
+        margin-top: 64px;
+    }
+
+    /* Cho hàng nút có thể cuộn ngang nếu chật */
+    .responsive-btn-group {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding: 0 8px;
+        gap: 8px;
+    }
+
+    .responsive-btn-group a {
+        flex: 0 0 auto; /* mỗi nút giữ kích thước của nó, không bị co dẹt */
+    }
+
+    /* Nút icon nhỏ hơn một chút */
+    .responsive-btn-group .btn-center {
+        padding: 6px 10px;
+        font-size: 0.85rem;
+    }
+
+    /* Ép: text buttons ẩn, icon buttons hiện khi ≤ 430px */
+    .responsive-btn-group .d-sm-inline-flex {
+        display: none !important;
+    }
+
+    .responsive-btn-group .d-sm-none {
+        display: inline-flex !important;
+    }
+
+    /* Footer: các cột xuống hàng cho dễ đọc */
+    .footer-container {
+        row-gap: 16px;
+    }
+}

@@ -1,0 +1,80 @@
+﻿:root {
+    /*xanh dương*/
+    --blue-color: #3498db;
+    --light-blue-color: #e3f2fd;
+    --blue-color1: #2196f3;
+    --drak-blue-color: #0d47a1;
+    /*xanh lục*/
+    --green-color: #2ecc71;
+    --light-green-color: #d4edda;
+    --drak-green-color: #1b5e20;
+    /*đỏ*/
+    --light-red-color: #ffebee;
+    --red-color: #f44336;
+    --drak-red-color: #b71c1c;
+    /*cam*/
+    --light-orange-color: #ffe0b2;
+    --orange-color: #ffb444;
+    --drak-blue-color: #e65100;
+    /*hồng*/
+    --pink-light: #f8bbd0;
+    --pink: #e91e63;
+    --pink-dark: #880e4f;
+    /*vàng*/
+    --yellow-light: #fff9c4;
+    --yellow: #ffeb3b;
+    --yellow-dark: #fbc02d;
+    /*tím*/
+    --purple-light: #e1bee7;
+    --purple: #9c27b0;
+    --purple-dark: #4a148c;
+    /*màu gradient*/
+    --gradient-blue: linear-gradient(135deg, #2196f3, #21cbf3);
+    --gradient-pink: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    --gradient-purple: linear-gradient(135deg, #a18cd1, #fbc2eb);
+    --gradient-orange: linear-gradient(135deg, #f7971e, #ffd200);
+    --gradient-green: linear-gradient(135deg, #56ab2f, #a8e063);
+    --gradient-night: linear-gradient(135deg, #232526, #414345);
+    --gradient-fire: linear-gradient(90deg, #ff0000, #ff7a00, #ffdd00);
+    --gradient-knowledge: linear-gradient(90deg, #003973, #E5E5BE);
+    --gradient-nature: linear-gradient(90deg, #43cea2, #185a9d);
+    --gradient-classic: linear-gradient(270deg, #654321, #d9a760);
+    --gradient-tech: linear-gradient(90deg, rgba(0,77,77,1),rgba(0,77,77,1), rgba(0,25,47, 1),rgba(0,25,47, 1), rgba(10,25,47,1));
+    --gradient-tech-f: linear-gradient(270deg, rgba(0,77,77,1),rgba(0,77,77,1), rgba(0,25,47, 1),rgba(0,25,47, 1), rgba(10,25,47,1));
+    /*linh ta linh tinh khác*/
+    --bg-color: #e8e8e8;
+    --nav-color: #0e0e0e;
+}
+
+.btn-hover {
+    width: 250px;
+    height: 40px;
+    font-size: 20px;
+    font-weight: 600;
+    margin: 20px;
+    box-shadow: 0 3px 0 grey, 0 6px 10px rgba(0, 0, 0, 0.4);
+    transition: 0.2s ease;
+}
+.btn-hover:active {
+    transform: translateY(3px);
+    box-shadow: 0 1px 0 #003838;
+}
+.line {
+    text-decoration: none;
+    transition: 0.4s ease;
+}
+.line:hover {
+    background-color: rgba(128, 128, 128, 0.2);
+    text-align: center;
+    height: 40px;
+    border-radius: 20px;
+}
+
+.btn-nav{
+    transition: 0.4s ease;
+    font-weight: 500;
+}
+
+.btn-nav:hover{
+    transform: scale(1.05);
+}

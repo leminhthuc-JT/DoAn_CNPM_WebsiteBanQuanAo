@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="be387c09afbc499cb6ddfcbc32e8aef1" Name="Diagram1">
+        <EntityTypeShape EntityType="G6_QLBQAModel.BinhLuan" Width="1.5" PointX="5.25" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="G6_QLBQAModel.CTSanPham" Width="1.5" PointX="8.25" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="G6_QLBQAModel.CTHoaDon" Width="1.5" PointX="10.5" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="G6_QLBQAModel.DanhMuc" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="G6_QLBQAModel.GiamGia" Width="1.5" PointX="3" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="G6_QLBQAModel.HoaDon" Width="1.5" PointX="5.25" PointY="15.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="G6_QLBQAModel.LoaiSp" Width="1.5" PointX="0.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="G6_QLBQAModel.mau" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="G6_QLBQAModel.NhaCungCap" Width="1.5" PointX="0.75" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="G6_QLBQAModel.Quyen" Width="1.5" PointX="0.75" PointY="15.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="G6_QLBQAModel.SanPham" Width="1.5" PointX="3" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="G6_QLBQAModel.size" Width="1.5" PointX="6" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="G6_QLBQAModel.TaiKhoan" Width="1.5" PointX="3" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="G6_QLBQAModel.ThuongHieu" Width="1.5" PointX="0.75" PointY="12.375" IsExpanded="true" />
+        <AssociationConnector Association="G6_QLBQAModel.fk_bl_sp" ManuallyRouted="false" />
+        <AssociationConnector Association="G6_QLBQAModel.fk_bl_tk" ManuallyRouted="false" />
+        <AssociationConnector Association="G6_QLBQAModel.fk_ctsp_m" ManuallyRouted="false" />
+        <AssociationConnector Association="G6_QLBQAModel.fk_ctsp_s" ManuallyRouted="false" />
+        <AssociationConnector Association="G6_QLBQAModel.fk_ctsp_sp" ManuallyRouted="false" />
+        <AssociationConnector Association="G6_QLBQAModel.fk_cthd_ctsp" ManuallyRouted="false" />
+        <AssociationConnector Association="G6_QLBQAModel.fk_sp_dm" ManuallyRouted="false" />
+        <AssociationConnector Association="G6_QLBQAModel.fk_hd_gg" ManuallyRouted="false" />
+        <AssociationConnector Association="G6_QLBQAModel.fk_hd_tk" ManuallyRouted="false" />
+        <AssociationConnector Association="G6_QLBQAModel.fk_sp_lsp" ManuallyRouted="false" />
+        <AssociationConnector Association="G6_QLBQAModel.fk_sp_ncc" ManuallyRouted="false" />
+        <AssociationConnector Association="G6_QLBQAModel.fk_tk_q" ManuallyRouted="false" />
+        <AssociationConnector Association="G6_QLBQAModel.fk_sp_th" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

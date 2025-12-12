@@ -1,0 +1,398 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="G6_QLBQAModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="BinhLuan">
+    <Key>
+      <PropertyRef Name="matk" />
+      <PropertyRef Name="masp" />
+    </Key>
+    <Property Name="matk" Type="Int32" Nullable="false" />
+    <Property Name="masp" Type="Int32" Nullable="false" />
+    <Property Name="sosao" Type="Int32" />
+    <Property Name="mota" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="ngay" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="SanPham" Relationship="Self.fk_bl_sp" FromRole="BinhLuan" ToRole="SanPham" />
+    <NavigationProperty Name="TaiKhoan" Relationship="Self.fk_bl_tk" FromRole="BinhLuan" ToRole="TaiKhoan" />
+  </EntityType>
+  <EntityType Name="CTSanPham">
+    <Key>
+      <PropertyRef Name="masp" />
+      <PropertyRef Name="mam" />
+      <PropertyRef Name="mas" />
+    </Key>
+    <Property Name="masp" Type="Int32" Nullable="false" />
+    <Property Name="mam" Type="Int32" Nullable="false" />
+    <Property Name="link" Type="String" MaxLength="100" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="dongia" Type="Decimal" Precision="18" Scale="3" />
+    <Property Name="soluong" Type="Int32" />
+    <Property Name="mas" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="mau" Relationship="Self.fk_ctsp_m" FromRole="CTSanPham" ToRole="mau" />
+    <NavigationProperty Name="size" Relationship="Self.fk_ctsp_s" FromRole="CTSanPham" ToRole="size" />
+    <NavigationProperty Name="SanPham" Relationship="Self.fk_ctsp_sp" FromRole="CTSanPham" ToRole="SanPham" />
+    <NavigationProperty Name="CTHoaDon" Relationship="Self.fk_cthd_ctsp" FromRole="CTSanPham" ToRole="CTHoaDon" />
+  </EntityType>
+  <EntityType Name="CTHoaDon">
+    <Key>
+      <PropertyRef Name="mahd" />
+      <PropertyRef Name="masp" />
+    </Key>
+    <Property Name="mahd" Type="Int32" Nullable="false" />
+    <Property Name="masp" Type="Int32" Nullable="false" />
+    <Property Name="mam" Type="Int32" />
+    <Property Name="mas" Type="Int32" />
+    <Property Name="soluong" Type="Int32" />
+    <Property Name="dongia" Type="Decimal" Precision="18" Scale="3" />
+    <NavigationProperty Name="CTSanPham" Relationship="Self.fk_cthd_ctsp" FromRole="CTHoaDon" ToRole="CTSanPham" />
+  </EntityType>
+  <EntityType Name="DanhMuc">
+    <Key>
+      <PropertyRef Name="madm" />
+    </Key>
+    <Property Name="madm" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tendm" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="SanPham" Relationship="Self.fk_sp_dm" FromRole="DanhMuc" ToRole="SanPham" />
+  </EntityType>
+  <EntityType Name="GiamGia">
+    <Key>
+      <PropertyRef Name="magg" />
+    </Key>
+    <Property Name="magg" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="mucgiam" Type="Int32" />
+    <Property Name="ngaybd" Type="DateTime" Precision="3" />
+    <Property Name="ngaykt" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="HoaDon" Relationship="Self.fk_hd_gg" FromRole="GiamGia" ToRole="HoaDon" />
+  </EntityType>
+  <EntityType Name="HoaDon">
+    <Key>
+      <PropertyRef Name="mahd" />
+    </Key>
+    <Property Name="mahd" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="matk" Type="Int32" Nullable="false" />
+    <Property Name="magg" Type="Int32" />
+    <Property Name="tongtien" Type="Decimal" Precision="18" Scale="3" />
+    <Property Name="ngaylap" Type="DateTime" Precision="3" />
+    <Property Name="diachigiaohang" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="tinhtrang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="dathanhtoan" Type="Boolean" />
+    <NavigationProperty Name="GiamGia" Relationship="Self.fk_hd_gg" FromRole="HoaDon" ToRole="GiamGia" />
+    <NavigationProperty Name="TaiKhoan" Relationship="Self.fk_hd_tk" FromRole="HoaDon" ToRole="TaiKhoan" />
+  </EntityType>
+  <EntityType Name="LoaiSp">
+    <Key>
+      <PropertyRef Name="maloai" />
+    </Key>
+    <Property Name="maloai" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tenloai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="SanPham" Relationship="Self.fk_sp_lsp" FromRole="LoaiSp" ToRole="SanPham" />
+  </EntityType>
+  <EntityType Name="mau">
+    <Key>
+      <PropertyRef Name="mam" />
+    </Key>
+    <Property Name="mam" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tenm" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="CTSanPham" Relationship="Self.fk_ctsp_m" FromRole="mau" ToRole="CTSanPham" />
+  </EntityType>
+  <EntityType Name="NhaCungCap">
+    <Key>
+      <PropertyRef Name="mancc" />
+    </Key>
+    <Property Name="mancc" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tenncc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
+    <Property Name="diachi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="sdt" Type="String" MaxLength="12" FixedLength="true" Unicode="false" />
+    <NavigationProperty Name="SanPham" Relationship="Self.fk_sp_ncc" FromRole="NhaCungCap" ToRole="SanPham" />
+  </EntityType>
+  <EntityType Name="Quyen">
+    <Key>
+      <PropertyRef Name="maquyen" />
+    </Key>
+    <Property Name="maquyen" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tenquyen" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="TaiKhoan" Relationship="Self.fk_tk_q" FromRole="Quyen" ToRole="TaiKhoan" />
+  </EntityType>
+  <EntityType Name="SanPham">
+    <Key>
+      <PropertyRef Name="masp" />
+    </Key>
+    <Property Name="masp" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tensp" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="giaban" Type="Decimal" Precision="18" Scale="3" Nullable="false" />
+    <Property Name="mota" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="soluong" Type="Int32" Nullable="false" />
+    <Property Name="ngaynhap" Type="DateTime" Precision="3" />
+    <Property Name="anhchinh" Type="String" MaxLength="200" FixedLength="true" Unicode="false" />
+    <Property Name="math" Type="Int32" />
+    <Property Name="maloai" Type="Int32" />
+    <Property Name="madm" Type="Int32" />
+    <Property Name="mancc" Type="Int32" />
+    <NavigationProperty Name="BinhLuan" Relationship="Self.fk_bl_sp" FromRole="SanPham" ToRole="BinhLuan" />
+    <NavigationProperty Name="CTSanPham" Relationship="Self.fk_ctsp_sp" FromRole="SanPham" ToRole="CTSanPham" />
+    <NavigationProperty Name="DanhMuc" Relationship="Self.fk_sp_dm" FromRole="SanPham" ToRole="DanhMuc" />
+    <NavigationProperty Name="LoaiSp" Relationship="Self.fk_sp_lsp" FromRole="SanPham" ToRole="LoaiSp" />
+    <NavigationProperty Name="NhaCungCap" Relationship="Self.fk_sp_ncc" FromRole="SanPham" ToRole="NhaCungCap" />
+    <NavigationProperty Name="ThuongHieu" Relationship="Self.fk_sp_th" FromRole="SanPham" ToRole="ThuongHieu" />
+  </EntityType>
+  <EntityType Name="size">
+    <Key>
+      <PropertyRef Name="mas" />
+    </Key>
+    <Property Name="mas" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tens" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+    <NavigationProperty Name="CTSanPham" Relationship="Self.fk_ctsp_s" FromRole="size" ToRole="CTSanPham" />
+  </EntityType>
+  <EntityType Name="TaiKhoan">
+    <Key>
+      <PropertyRef Name="matk" />
+    </Key>
+    <Property Name="matk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tenkh" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="gioitinh" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="ngaysinh" Type="DateTime" Precision="3" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="matkhau" Type="String" MaxLength="20" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="anhdaidien" Type="String" MaxLength="200" FixedLength="true" Unicode="false" />
+    <Property Name="sdt" Type="String" MaxLength="12" FixedLength="true" Unicode="false" />
+    <Property Name="diachi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="maquyen" Type="Int32" />
+    <NavigationProperty Name="BinhLuan" Relationship="Self.fk_bl_tk" FromRole="TaiKhoan" ToRole="BinhLuan" />
+    <NavigationProperty Name="HoaDon" Relationship="Self.fk_hd_tk" FromRole="TaiKhoan" ToRole="HoaDon" />
+    <NavigationProperty Name="Quyen" Relationship="Self.fk_tk_q" FromRole="TaiKhoan" ToRole="Quyen" />
+  </EntityType>
+  <EntityType Name="ThuongHieu">
+    <Key>
+      <PropertyRef Name="math" />
+    </Key>
+    <Property Name="math" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tenth" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="SanPham" Relationship="Self.fk_sp_th" FromRole="ThuongHieu" ToRole="SanPham" />
+  </EntityType>
+  <Association Name="fk_bl_sp">
+    <End Role="SanPham" Type="Self.SanPham" Multiplicity="1" />
+    <End Role="BinhLuan" Type="Self.BinhLuan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SanPham">
+        <PropertyRef Name="masp" />
+      </Principal>
+      <Dependent Role="BinhLuan">
+        <PropertyRef Name="masp" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_bl_tk">
+    <End Role="TaiKhoan" Type="Self.TaiKhoan" Multiplicity="1" />
+    <End Role="BinhLuan" Type="Self.BinhLuan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TaiKhoan">
+        <PropertyRef Name="matk" />
+      </Principal>
+      <Dependent Role="BinhLuan">
+        <PropertyRef Name="matk" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_ctsp_m">
+    <End Role="mau" Type="Self.mau" Multiplicity="1" />
+    <End Role="CTSanPham" Type="Self.CTSanPham" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="mau">
+        <PropertyRef Name="mam" />
+      </Principal>
+      <Dependent Role="CTSanPham">
+        <PropertyRef Name="mam" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_ctsp_s">
+    <End Role="size" Type="Self.size" Multiplicity="1" />
+    <End Role="CTSanPham" Type="Self.CTSanPham" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="size">
+        <PropertyRef Name="mas" />
+      </Principal>
+      <Dependent Role="CTSanPham">
+        <PropertyRef Name="mas" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_ctsp_sp">
+    <End Role="SanPham" Type="Self.SanPham" Multiplicity="1" />
+    <End Role="CTSanPham" Type="Self.CTSanPham" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SanPham">
+        <PropertyRef Name="masp" />
+      </Principal>
+      <Dependent Role="CTSanPham">
+        <PropertyRef Name="masp" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_cthd_ctsp">
+    <End Role="CTSanPham" Type="Self.CTSanPham" Multiplicity="0..1" />
+    <End Role="CTHoaDon" Type="Self.CTHoaDon" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CTSanPham">
+        <PropertyRef Name="masp" />
+        <PropertyRef Name="mam" />
+        <PropertyRef Name="mas" />
+      </Principal>
+      <Dependent Role="CTHoaDon">
+        <PropertyRef Name="masp" />
+        <PropertyRef Name="mam" />
+        <PropertyRef Name="mas" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_sp_dm">
+    <End Role="DanhMuc" Type="Self.DanhMuc" Multiplicity="0..1" />
+    <End Role="SanPham" Type="Self.SanPham" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DanhMuc">
+        <PropertyRef Name="madm" />
+      </Principal>
+      <Dependent Role="SanPham">
+        <PropertyRef Name="madm" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_hd_gg">
+    <End Role="GiamGia" Type="Self.GiamGia" Multiplicity="0..1" />
+    <End Role="HoaDon" Type="Self.HoaDon" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GiamGia">
+        <PropertyRef Name="magg" />
+      </Principal>
+      <Dependent Role="HoaDon">
+        <PropertyRef Name="magg" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_hd_tk">
+    <End Role="TaiKhoan" Type="Self.TaiKhoan" Multiplicity="1" />
+    <End Role="HoaDon" Type="Self.HoaDon" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TaiKhoan">
+        <PropertyRef Name="matk" />
+      </Principal>
+      <Dependent Role="HoaDon">
+        <PropertyRef Name="matk" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_sp_lsp">
+    <End Role="LoaiSp" Type="Self.LoaiSp" Multiplicity="0..1" />
+    <End Role="SanPham" Type="Self.SanPham" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LoaiSp">
+        <PropertyRef Name="maloai" />
+      </Principal>
+      <Dependent Role="SanPham">
+        <PropertyRef Name="maloai" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_sp_ncc">
+    <End Role="NhaCungCap" Type="Self.NhaCungCap" Multiplicity="0..1" />
+    <End Role="SanPham" Type="Self.SanPham" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NhaCungCap">
+        <PropertyRef Name="mancc" />
+      </Principal>
+      <Dependent Role="SanPham">
+        <PropertyRef Name="mancc" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_tk_q">
+    <End Role="Quyen" Type="Self.Quyen" Multiplicity="0..1" />
+    <End Role="TaiKhoan" Type="Self.TaiKhoan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Quyen">
+        <PropertyRef Name="maquyen" />
+      </Principal>
+      <Dependent Role="TaiKhoan">
+        <PropertyRef Name="maquyen" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_sp_th">
+    <End Role="ThuongHieu" Type="Self.ThuongHieu" Multiplicity="0..1" />
+    <End Role="SanPham" Type="Self.SanPham" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ThuongHieu">
+        <PropertyRef Name="math" />
+      </Principal>
+      <Dependent Role="SanPham">
+        <PropertyRef Name="math" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="G6_QLBQAEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="BinhLuan" EntityType="Self.BinhLuan" />
+    <EntitySet Name="CTSanPham" EntityType="Self.CTSanPham" />
+    <EntitySet Name="CTHoaDon" EntityType="Self.CTHoaDon" />
+    <EntitySet Name="DanhMuc" EntityType="Self.DanhMuc" />
+    <EntitySet Name="GiamGia" EntityType="Self.GiamGia" />
+    <EntitySet Name="HoaDon" EntityType="Self.HoaDon" />
+    <EntitySet Name="LoaiSp" EntityType="Self.LoaiSp" />
+    <EntitySet Name="mau" EntityType="Self.mau" />
+    <EntitySet Name="NhaCungCap" EntityType="Self.NhaCungCap" />
+    <EntitySet Name="Quyen" EntityType="Self.Quyen" />
+    <EntitySet Name="SanPham" EntityType="Self.SanPham" />
+    <EntitySet Name="size" EntityType="Self.size" />
+    <EntitySet Name="TaiKhoan" EntityType="Self.TaiKhoan" />
+    <EntitySet Name="ThuongHieu" EntityType="Self.ThuongHieu" />
+    <AssociationSet Name="fk_bl_sp" Association="Self.fk_bl_sp">
+      <End Role="SanPham" EntitySet="SanPham" />
+      <End Role="BinhLuan" EntitySet="BinhLuan" />
+    </AssociationSet>
+    <AssociationSet Name="fk_bl_tk" Association="Self.fk_bl_tk">
+      <End Role="TaiKhoan" EntitySet="TaiKhoan" />
+      <End Role="BinhLuan" EntitySet="BinhLuan" />
+    </AssociationSet>
+    <AssociationSet Name="fk_ctsp_m" Association="Self.fk_ctsp_m">
+      <End Role="mau" EntitySet="mau" />
+      <End Role="CTSanPham" EntitySet="CTSanPham" />
+    </AssociationSet>
+    <AssociationSet Name="fk_ctsp_s" Association="Self.fk_ctsp_s">
+      <End Role="size" EntitySet="size" />
+      <End Role="CTSanPham" EntitySet="CTSanPham" />
+    </AssociationSet>
+    <AssociationSet Name="fk_ctsp_sp" Association="Self.fk_ctsp_sp">
+      <End Role="SanPham" EntitySet="SanPham" />
+      <End Role="CTSanPham" EntitySet="CTSanPham" />
+    </AssociationSet>
+    <AssociationSet Name="fk_cthd_ctsp" Association="Self.fk_cthd_ctsp">
+      <End Role="CTSanPham" EntitySet="CTSanPham" />
+      <End Role="CTHoaDon" EntitySet="CTHoaDon" />
+    </AssociationSet>
+    <AssociationSet Name="fk_sp_dm" Association="Self.fk_sp_dm">
+      <End Role="DanhMuc" EntitySet="DanhMuc" />
+      <End Role="SanPham" EntitySet="SanPham" />
+    </AssociationSet>
+    <AssociationSet Name="fk_hd_gg" Association="Self.fk_hd_gg">
+      <End Role="GiamGia" EntitySet="GiamGia" />
+      <End Role="HoaDon" EntitySet="HoaDon" />
+    </AssociationSet>
+    <AssociationSet Name="fk_hd_tk" Association="Self.fk_hd_tk">
+      <End Role="TaiKhoan" EntitySet="TaiKhoan" />
+      <End Role="HoaDon" EntitySet="HoaDon" />
+    </AssociationSet>
+    <AssociationSet Name="fk_sp_lsp" Association="Self.fk_sp_lsp">
+      <End Role="LoaiSp" EntitySet="LoaiSp" />
+      <End Role="SanPham" EntitySet="SanPham" />
+    </AssociationSet>
+    <AssociationSet Name="fk_sp_ncc" Association="Self.fk_sp_ncc">
+      <End Role="NhaCungCap" EntitySet="NhaCungCap" />
+      <End Role="SanPham" EntitySet="SanPham" />
+    </AssociationSet>
+    <AssociationSet Name="fk_tk_q" Association="Self.fk_tk_q">
+      <End Role="Quyen" EntitySet="Quyen" />
+      <End Role="TaiKhoan" EntitySet="TaiKhoan" />
+    </AssociationSet>
+    <AssociationSet Name="fk_sp_th" Association="Self.fk_sp_th">
+      <End Role="ThuongHieu" EntitySet="ThuongHieu" />
+      <End Role="SanPham" EntitySet="SanPham" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
