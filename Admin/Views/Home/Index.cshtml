@@ -199,7 +199,7 @@
             @foreach (var sp in Model.Take(10))
             {
                 <article class="product-card">
-                    <a href="#" style="text-decoration: none;">
+                    <a href="@Url.Action("ChiTietSP","Product", new { masp=sp.masp})" style="text-decoration: none;">
                         <img src="~/Content/ImageSP/@sp.anhchinh" alt="@sp.tensp" />
 
                         <h4 class="title">@sp.tensp</h4>
@@ -225,7 +225,7 @@
             @foreach (var sp in Model.Take(10))
             {
                 <article class="product-card">
-                    <a href="#" style="text-decoration: none;">
+                    <a href="@Url.Action("ChiTietSP","Product", new { masp=sp.masp})" style="text-decoration: none;">
                         <img src="~/Content/ImageSP/@sp.anhchinh" alt="@sp.tensp" />
 
                         <h4 class="title">@sp.tensp</h4>
@@ -250,7 +250,7 @@
             @foreach (var sp in Model.Take(10))
             {
                 <article class="product-card">
-                    <a href="#" style="text-decoration: none;">
+                    <a href="@Url.Action("ChiTietSP","Product", new { masp=sp.masp})" style="text-decoration: none;">
                         <img src="~/Content/ImageSP/@sp.anhchinh" alt="@sp.tensp" />
 
                         <h4 class="title">@sp.tensp</h4>
