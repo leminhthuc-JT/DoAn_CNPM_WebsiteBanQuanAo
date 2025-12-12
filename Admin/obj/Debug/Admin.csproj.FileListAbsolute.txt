@@ -79,7 +79,6 @@ D:\CNPM\Admin\obj\Debug\Admin.csproj.CoreCompileInputs.cache
 D:\CNPM\Admin\obj\Debug\Admin.csproj.Up2Date
 D:\CNPM\Admin\obj\Debug\Admin.dll
 D:\CNPM\Admin\obj\Debug\Admin.pdb
-<<<<<<< HEAD
 C:\Users\LENOVO\DoAn_CNPM_WebsiteBanQuanAo\Admin\bin\Admin.dll.config
 C:\Users\LENOVO\DoAn_CNPM_WebsiteBanQuanAo\Admin\bin\Admin.dll
 C:\Users\LENOVO\DoAn_CNPM_WebsiteBanQuanAo\Admin\bin\Admin.pdb
