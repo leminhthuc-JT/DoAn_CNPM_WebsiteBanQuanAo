@@ -129,6 +129,7 @@
     <Compile Include="BinhLuan.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="CTHoaDon.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -207,8 +208,11 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\Css\Login.css" />
+    <Content Include="Content\Css\Register.css" />
     <Content Include="Content\Css\Style.css" />
     <Content Include="Content\Css\StyleAdmin.css" />
+    <Content Include="Content\Css\VerifyOTP.css" />
     <Content Include="Content\ImageSP\bgmacdinh.png" />
     <Content Include="Content\ImageSP\jeannamxanhden.png" />
     <Content Include="Content\ImageSP\jeannamxanhduong.png" />
@@ -304,6 +308,9 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\VerifyOTP.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

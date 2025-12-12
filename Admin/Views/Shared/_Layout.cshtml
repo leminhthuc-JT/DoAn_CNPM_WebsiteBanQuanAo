@@ -31,19 +31,36 @@
                         <li class="nav-item m-3 line">
                             <a class="nav-link" href="#"> Contact </a>
                         </li>
-                        @if (User.Identity.IsAuthenticated)
+                        @if (Session["UserName"] != null)
                         {
-                            <li class="nav-item m-3 line">
-                                <a class="nav-link" href="/Home/ProFile?Name=@User.Identity.Name"> Profile of @User.Identity.Name </a>
+                            <li class="nav-item dropdown m-3 line">
+                                <a class="nav-link dropdown-toggle text-light fw-bold" href="#" id="userDropdown"
+                                   role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Xin chào, @Session["UserName"]
+                                </a>
+
+                                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="userDropdown">
+                                    <li><a class="dropdown-item" href="#">Thông tin cá nhân</a></li>
+                                    <li><a class="dropdown-item" href="#">Đơn hàng của tôi</a></li>
+                                    <li><hr class="dropdown-divider" /></li>
+                                    <li>
+                                        <a class="dropdown-item text-danger fw-bold" href="/Account/Logout">
+                                            <i class="fa-solid fa-right-from-bracket"></i> Đăng xuất
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
+
                             <li class="nav-item m-3 line">
-                                <a class="nav-link" href="#"> <i class="fa-solid fa-bag-shopping" style="font-size: 20px;"></i></a>
+                                <a class="nav-link" href="#">
+                                    <i class="fa-solid fa-bag-shopping" style="font-size: 20px;"></i>
+                                </a>
                             </li>
                         }
                         else
                         {
                             <li class="nav-item m-3 line">
-                                <a class="nav-link" href="/Account/Regester"> Register </a>
+                                <a class="nav-link" href="/Account/Register"> Register </a>
                             </li>
                             <li class="nav-item m-3 line">
                                 <a class="nav-link" href="/Account/Login"> Login </a>
