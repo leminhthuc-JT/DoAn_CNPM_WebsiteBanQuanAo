@@ -1,0 +1,184 @@
+﻿@model Admin.SanPham
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .checkout-page {
+        max-width: 900px;
+    }
+
+    .line-title {
+        border-top: 3px solid #222;
+        width: 100%;
+    }
+
+    .product-img {
+        max-height: 150px;
+    }
+
+    .box-option {
+        border: 1px solid #ccc;
+        padding: 12px;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+
+        .box-option.active {
+            border-color: #0d6efd;
+        }
+
+    .voucher-box {
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 6px;
+        font-size: 14px;
+    }
+
+    .pay-option {
+        width: 100%;
+        border: 1px solid #ccc;
+        margin-bottom: 8px;
+        text-align: left;
+    }
+
+        .pay-option:hover {
+            border-color: #000;
+        }
+
+    .btn-order {
+        background: #000;
+        color: #fff;
+        font-size: 18px;
+        padding: 12px;
+    }
+
+        .btn-order:hover {
+            background: #222;
+        }
+
+</style>
+
+<div class="container checkout-page" style="margin-top: 80px;">
+
+    <!-- TIÊU ĐỀ -->
+    <h4 class="text-center fw-bold mb-3">THANH TOÁN</h4>
+    <hr class="line-title">
+
+    <!-- THÔNG TIN SẢN PHẨM -->
+    <div class="card p-3 mb-4">
+        <div class="row align-items-center">
+            <div class="col-md-3 text-center">
+                <img src="~/Content/ImageSP/@ViewBag.Anh" class="img-fluid product-img">
+            </div>
+
+            <div class="col-md-9">
+                <p><b>Tên sản phẩm:</b> Mũ LA</p>
+                <p><b>Mô tả:</b> Màu trắng, Size vừa</p>
+                <p><b>Số lượng:</b> X1</p>
+                <p><b>Đơn giá:</b> <span class="text-danger fw-bold">799.000 VNĐ</span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- HÌNH THỨC GIAO HÀNG -->
+    <div class="card p-3 mb-4">
+        <b>Hình thức giao hàng:</b>
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <div class="box-option active">
+                    <b>Hỏa tốc</b><br>
+                    <small>Ước tính giao hàng: khoảng 4 giờ kể từ khi đặt hàng</small>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="box-option">
+                    <b>Hỏa tốc</b><br>
+                    <small>Ước tính giao hàng: khoảng 4 giờ kể từ khi đặt hàng</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MÃ GIẢM GIÁ -->
+    <div class="card p-3 mb-4">
+        <b>Mã giảm giá:</b>
+
+        <div class="d-flex gap-2 mt-2 mb-3">
+            <input type="text" class="form-control" placeholder="Nhập mã giảm giá...">
+            <button class="btn btn-dark">Submit</button>
+        </div>
+
+        <div class="row g-3">
+            <div class="col-md-6">
+                <div class="voucher-box">
+                    <b>Giảm 30K phí vận chuyển</b><br>
+                    Điều kiện: Đơn hàng trên 250k<br>
+                    <small>Thời hạn: Còn 2 giờ</small>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="voucher-box">
+                    <b>Giảm 10% cho thời trang nữ</b><br>
+                    Điều kiện: Thời trang nữ<br>
+                    <small>Thời hạn: 8/3/2025 - 10/3/2025</small>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="voucher-box">
+                    <b>Giảm 30K phí vận chuyển</b><br>
+                    Điều kiện: Đơn hàng trên 250k<br>
+                    <small>Thời hạn: Còn 2 giờ</small>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="voucher-box">
+                    <b>Giảm 10% cho thời trang nữ</b><br>
+                    Điều kiện: Thời trang nữ<br>
+                    <small>Thời hạn: 8/3/2025 - 10/3/2025</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-2">
+            <a href="#">Xem thêm...</a>
+        </div>
+    </div>
+
+    <!-- THANH TOÁN -->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card p-3 mb-3">
+                <b>Hình thức thanh toán:</b>
+
+                <button class="btn pay-option mt-2">Thanh toán khi nhận hàng</button>
+                <button class="btn pay-option">Thanh toán bằng ví trả sau</button>
+                <button class="btn pay-option">Thanh toán qua ví điện tử</button>
+                <button class="btn pay-option">Thanh toán qua ngân hàng</button>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card p-3 mb-3">
+                <b>Chi tiết thanh toán:</b>
+
+                <div class="d-flex justify-content-between">
+                    <span>Sản phẩm:</span><span>799.000 VNĐ</span>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <span>Phí vận chuyển:</span><span>45.000 VNĐ</span>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <span>Vouchers:</span><span>-109.900 VNĐ</span>
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between text-danger fw-bold">
+                    <span>Tổng tiền:</span><span>734.100 VNĐ</span>
+                </div>
+            </div>
+
+            <button class="btn btn-order w-100 mt-2">ĐẶT HÀNG</button>
+        </div>
+    </div>
+</div>
