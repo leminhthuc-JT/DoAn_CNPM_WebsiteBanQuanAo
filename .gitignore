@@ -3,5 +3,7 @@
 **/bin/
 **/obj/
 *.suo
+[Bb]in/
+[Oo]bj/
 *.user
 packages/
