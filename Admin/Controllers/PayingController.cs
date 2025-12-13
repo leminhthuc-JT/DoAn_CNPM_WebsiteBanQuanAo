@@ -28,6 +28,7 @@ namespace Admin.Controllers
             ViewBag.Ship = ship;
             ViewBag.MaSP = masp;
             ViewBag.MaTK = matk;
+            ViewBag.TK = tk;
             GiamGia vou = new GiamGia();
             if (gg > 0)
             {

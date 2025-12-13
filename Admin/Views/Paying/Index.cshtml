@@ -162,6 +162,30 @@
             transform: translateY(-2px);
             color: white;
         }
+        /*Cảd*/
+    .tech-card {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        border: 1px solid var(--border-color);
+        margin-bottom: 20px;
+        overflow: hidden;
+    }
+
+    .tech-card-header {
+        background: var(--bg-light);
+        padding: 15px 20px;
+        border-bottom: 1px solid var(--border-color);
+        font-weight: 600;
+        color: var(--primary-dark);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .tech-card-body {
+        padding: 20px;
+    }
 
 </style>
 
@@ -183,6 +207,26 @@
                 <p><b>Mô tả:</b> @ViewBag.Mau, @ViewBag.Size</p>
                 <p><b>Số lượng:</b> x @ViewBag.SL</p>
                 <p><b>Đơn giá:</b> <span class="text-danger fw-bold">@string.Format("{0:N0} VNĐ", Model.giaban)</span></p>
+            </div>
+        </div>
+    </div>
+    <!--Thông người dùng-->
+
+    <div class="card mb-4">
+        <div class="tech-card-header">
+            <i class="fa-solid fa-location-dot"></i> Thông tin giao hàng
+        </div>
+        <div class="tech-card-body position-relative">
+            <div class="position-absolute top-0 end-0 m-3">
+                <a href="#" class="btn-edit" style="text-decoration: none; color: black">
+                    <i class="fa-solid fa-pen-to-square"></i> Thay đổi
+                </a>
+            </div>
+
+            <div class="row mt-3">
+                <p><i class="fa-solid fa-user"></i> <b class="ms-3">Tên người nhận:</b> @ViewBag.TK.tenkh</p>
+                <p><i class="fa-solid fa-phone"></i><b class="ms-3">Mô tả:</b> @ViewBag.TK.sdt</p>
+                <p><i class="fa-solid fa-map-location-dot"></i><b class="ms-3">Đại chỉ:</b> @ViewBag.TK.diachi</p>
             </div>
         </div>
     </div>
@@ -264,7 +308,7 @@
         </div>
 
     </form>
-    
+
     <!-- MÃ GIẢM GIÁ -->
     <div class="card p-3 mb-4">
         <b>Mã giảm giá:</b>
@@ -328,7 +372,7 @@
                 <a href="javascript:void(0)" id="btnXemThem" style="color:black; ">Xem thêm</a>
             </div>
         </form>
-       
+
     </div>
 
     <!-- THANH TOÁN -->
@@ -490,7 +534,7 @@
         </div>
 
         <div class="col-md-6">
-           
+
             <form action="" method="get">
                 <div class="card p-3 mb-3">
                     <b>Chi tiết thanh toán:</b>
@@ -553,7 +597,7 @@
                     <i class="fa-solid fa-shield-halved"></i> Thông tin được bảo mật tuyệt đối
                 </div>
             </form>
-            
+
         </div>
     </div>
 </div>
