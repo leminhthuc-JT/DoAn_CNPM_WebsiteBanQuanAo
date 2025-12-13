@@ -216,6 +216,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\Css\Contact.css" />
     <Content Include="Content\Css\Login.css" />
     <Content Include="Content\Css\Register.css" />
     <Content Include="Content\Css\Style.css" />
@@ -297,6 +298,7 @@
     <Content Include="Content\Image\sale_5.png" />
     <Content Include="Content\Image\sale_6.png" />
     <Content Include="Content\Image\sale_7.png" />
+    <Content Include="Content\Message\contact_messages.txt" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -352,9 +354,11 @@
     <Content Include="Views\Account\VerifyOTP.cshtml" />
     <Content Include="Views\Paying\Index.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Cart\" />
     <Folder Include="Views\ShoppingCart\" />
   </ItemGroup>
   <ItemGroup>
