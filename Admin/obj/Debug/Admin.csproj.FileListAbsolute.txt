@@ -322,3 +322,5 @@ D:\CNPM\Admin\Admin\obj\Debug\Admin.csproj.CoreCompileInputs.cache
 D:\CNPM\Admin\Admin\obj\Debug\Admin.csproj.Up2Date
 D:\CNPM\Admin\Admin\obj\Debug\Admin.dll
 D:\CNPM\Admin\Admin\obj\Debug\Admin.pdb
+D:\CNPM\Admin\Admin\bin\QRCoder.dll
+D:\CNPM\Admin\Admin\bin\QRCoder.xml
