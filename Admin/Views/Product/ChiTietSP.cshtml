@@ -372,8 +372,8 @@
                     @if (Session["UserID"] != null)
                     {
                         <div class="d-flex gap-3">
-                            <button class="btn btn-add-cart py-2 px-4 w-50" formaction="/ShoppingCart/ThemGioHang" formmethod="get">THÊM GIỎ HÀNG</button> @*Làm trang giỏ hàng thì gắn link vào action*@
-                            <button class="btn btn-buy-now py-2 px-4 w-50" formaction="/Paying/Index" formmethod="post">MUA NGAY</button>
+                            <button class="btn btn-add-cart py-2 px-4 w-50" formaction="" formmethod="get">THÊM GIỎ HÀNG</button> <!--Làm trang giỏ hàng thì gắn link vào action-->
+                            <button class="btn btn-buy-now py-2 px-4 w-50" formaction="/Paying/Index" formmethod="get">MUA NGAY</button>
                         </div>
                     }
                     else
