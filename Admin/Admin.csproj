@@ -214,6 +214,7 @@
     <Content Include="Content\Css\Register.css" />
     <Content Include="Content\Css\Style.css" />
     <Content Include="Content\Css\StyleAdmin.css" />
+    <Content Include="Content\Css\VerifyOTP.css" />
     <Content Include="Content\ImageSP\aolennamnau.png" />
     <Content Include="Content\ImageSP\aolennamxam.png" />
     <Content Include="Content\ImageSP\aolennamxanhden.png" />
@@ -224,7 +225,6 @@
     <Content Include="Content\ImageSP\aophaonambe.png" />
     <Content Include="Content\ImageSP\aophaonamden.png" />
     <Content Include="Content\ImageSP\aophaonamxanhden.png" />
-    <Content Include="Content\Css\VerifyOTP.css" />
     <Content Include="Content\ImageSP\bgmacdinh.png" />
     <Content Include="Content\ImageSP\caogotbe.png" />
     <Content Include="Content\ImageSP\caogotden.png" />
@@ -345,6 +345,7 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\VerifyOTP.cshtml" />
     <Content Include="Views\Paying\Index.cshtml" />
+    <Content Include="Views\Product\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

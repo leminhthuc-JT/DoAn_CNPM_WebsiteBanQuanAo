@@ -1,0 +1,207 @@
+﻿@model IEnumerable<Admin.SanPham>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<style>
+    .product-header-line {
+        border-top: 1px solid #000;
+        margin-bottom: 20px;
+        padding-top: 10px;
+    }
+    .sidebar-menu a {
+        display: block;
+        padding: 10px;
+        border: 1px solid #444;
+        background: #000;
+        color: #fff;
+        margin-bottom: 5px;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-size: 14px;
+        border-radius: 4px;
+    }
+
+        .sidebar-menu a:hover {
+            background: #333;
+        }
+
+    .sort-bar button, .sort-bar a {
+        background: #fff;
+        border: 1px solid #ccc;
+        padding: 5px 15px;
+        border-radius: 20px;
+        margin-right: 5px;
+        color: #333;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+    .sort-bar .active {
+        background-color: #eee;
+        font-weight: bold;
+        border-color: #999;
+    }
+
+    .product-card {
+        margin-bottom: 30px;
+        text-align: center;
+        transition: transform 0.2s;
+    }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+    .product-img {
+        width: 100%;
+        height: 250px;
+        object-fit: contain;
+        margin-bottom: 10px;
+    }
+
+    .price-text {
+        color: red;
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    .pagination-custom a {
+        padding: 8px 16px;
+        margin: 0 4px;
+        border: 1px solid #ddd;
+        text-decoration: none;
+        color: #333;
+        border-radius: 4px;
+    }
+
+    .pagination-custom .active {
+        background-color: #333;
+        color: white;
+        border: 1px solid #333;
+    }
+</style>
+
+<div class="container mt-5 pt-5">
+
+    <div class="product-header-line">
+        <h3 class="fw-bold">Danh sách sản phẩm</h3>
+    </div>
+    <hr />
+
+    <!-- THANH TÌM KIẾM SẢN PHẨM -->
+    <div class="row justify-content-end mb-4">
+        <div class="col-md-6">
+            <form action="@Url.Action("Index", "Product")" method="get">
+                <div class="input-group">
+                    <!-- Input nhập từ khóa -->
+                    <input type="text"
+                           class="form-control"
+                           placeholder="Nhập tên sản phẩm cần tìm..."
+                           name="searchString"
+                           value="@Request.QueryString["searchString"]">
+
+                    <!-- Nút tìm kiếm -->
+                    <button class="btn btn-dark" type="submit">
+                        Tìm kiếm
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- SIDEBAR -->
+        <div class="col-md-3 sidebar-menu">
+            <h5 class="fw-bold mb-3">DANH MỤC</h5>
+
+            <a href="@Url.Action("Index", "Product")">Tất cả sản phẩm</a>
+
+            @if (ViewBag.ListDanhMuc != null)
+            {
+                foreach (var dm in ViewBag.ListDanhMuc)
+                {
+                    <a href="@Url.Action("Index", "Product", new { categoryID = dm.madm })">
+                        @dm.tendm
+                    </a>
+                }
+            }
+        </div>
+
+        <!-- CONTENT -->
+        <div class="col-md-9">
+            <div class="d-flex align-items-center mb-4 sort-bar ml">
+                <span class="me-2">Xếp theo:</span>
+
+                <a href="@Url.Action("Index", new { sortOrder = "sales", categoryID = ViewBag.CurrentCategory })"
+                   class="@(ViewBag.CurrentSort == "sales" ? "active" : "")">Lượt bán</a>
+
+                <a href="@Url.Action("Index", new { sortOrder = "newest", categoryID = ViewBag.CurrentCategory })"
+                   class="@(ViewBag.CurrentSort == "newest" ? "active" : "")">Mới nhất</a>
+
+                <a href="@Url.Action("Index", new { sortOrder = "price_asc", categoryID = ViewBag.CurrentCategory })"
+                   class="@(ViewBag.CurrentSort == "price_asc" ? "active" : "")">Giá tăng dần</a>
+                <a href="@Url.Action("Index", new { sortOrder = "price_desc", categoryID = ViewBag.CurrentCategory })"
+                   class="@(ViewBag.CurrentSort == "price_desc" ? "active" : "")">Giá giảm dần</a>
+            </div>
+
+            <!-- Lưới sản phẩm -->
+            <div class="row">
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var item in Model)
+                    {
+                        <div class="col-md-4 col-sm-6">
+                            <div class="product-card card border-0">
+                                <a href="@Url.Action("ChiTietSP", "Product", new { masp = item.masp })">
+                                    <!-- Hiển thị ảnh: Giả sử ảnh lưu trong thư mục /Content/Images/ -->
+                                    <img src="~/Content/ImageSP/@item.anhchinh" class="product-img" alt="@item.tensp" />
+                                </a>
+                                <div class="card-body p-0">
+                                    <h6 class="fw-bold mt-2">@item.tensp</h6>
+                                    <p class="price-text">@string.Format("{0:N0} VND", item.giaban)</p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="col-12 text-center">
+                        <p>Không tìm thấy sản phẩm nào.</p>
+                    </div>
+                }
+            </div>
+
+            <!-- Phân trang -->
+            <div class="d-flex justify-content-center mt-4 pagination-custom">
+                @if (ViewBag.TotalPages > 1)
+                {
+                    // Nút Previous
+                    if (ViewBag.CurrentPage > 1)
+                    {
+                        <a href="@Url.Action("Index", new { page = ViewBag.CurrentPage - 1, sortOrder = ViewBag.CurrentSort, categoryID = ViewBag.CurrentCategory })">Pre</a>
+                    }
+
+                    // Các nút số trang
+                    for (int i = 1; i <= ViewBag.TotalPages; i++)
+                    {
+                        <a href="@Url.Action("Index", new { page = i, sortOrder = ViewBag.CurrentSort, categoryID = ViewBag.CurrentCategory })"
+                           class="@(i == ViewBag.CurrentPage ? "active" : "")">@i</a>
+                    }
+
+                    // Nút Next
+                    if (ViewBag.CurrentPage < ViewBag.TotalPages)
+                    {
+                        <a href="@Url.Action("Index", new { page = ViewBag.CurrentPage + 1, sortOrder = ViewBag.CurrentSort, categoryID = ViewBag.CurrentCategory })">Next</a>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
