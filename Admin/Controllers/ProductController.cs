@@ -11,7 +11,7 @@ namespace Admin.Controllers
         G6_QLBQAEntities db = new G6_QLBQAEntities();
         // GET: Product
 
-        public ActionResult Index(string sortOrder, string searchString, int? categoryID, int? page)
+        public ActionResult Index(string sortOrder, string searchString, int? categoryID, int? brandID, int? typeID, int? sizeID, string priceRange, int? page)
         {
             var sanPhams = db.SanPham.AsQueryable();
 
@@ -25,9 +25,47 @@ namespace Admin.Controllers
                 sanPhams = sanPhams.Where(s => s.tensp.Contains(searchString));
             }
 
-            // Lưu trạng thái sắp xếp
-            ViewBag.CurrentSort = sortOrder;
+            if (brandID != null)
+            {
+                sanPhams = sanPhams.Where(s => s.math == brandID);
+            }
 
+            if (typeID != null)
+            {
+                sanPhams = sanPhams.Where(s => s.maloai == typeID);
+            }
+
+            // 5. Lọc theo Size (Cần join bảng CTSanPham)
+            if (sizeID != null)
+            {
+                // Lấy ra danh sách ID sản phẩm có size này
+                var spCoSize = db.CTSanPham.Where(ct => ct.mas == sizeID).Select(ct => ct.masp).Distinct();
+                sanPhams = sanPhams.Where(s => spCoSize.Contains(s.masp));
+            }
+
+            // 6. Lọc theo Mức giá (Chuỗi dạng "min-max")
+            if (!String.IsNullOrEmpty(priceRange))
+            {
+                if (priceRange == "under100")
+                {
+                    sanPhams = sanPhams.Where(s => s.giaban < 100000);
+                }
+                else if (priceRange == "100-300")
+                {
+                    sanPhams = sanPhams.Where(s => s.giaban >= 100000 && s.giaban <= 300000);
+                }
+                else if (priceRange == "300-500")
+                {
+                    sanPhams = sanPhams.Where(s => s.giaban >= 300000 && s.giaban <= 500000);
+                }
+                else if (priceRange == "above500")
+                {
+                    sanPhams = sanPhams.Where(s => s.giaban > 500000);
+                }
+            }
+
+            // --- Sắp xếp ---
+            ViewBag.CurrentSort = sortOrder;
             switch (sortOrder)
             {
                 case "price_asc":
@@ -36,11 +74,10 @@ namespace Admin.Controllers
                 case "price_desc":
                     sanPhams = sanPhams.OrderByDescending(s => s.giaban);
                     break;
-                case "newest": 
+                case "newest":
                     sanPhams = sanPhams.OrderByDescending(s => s.ngaynhap);
                     break;
-                case "sales": //lượt bán
-                              // tạm thời sắp xếp theo số lượng
+                case "sales":
                     sanPhams = sanPhams.OrderBy(s => s.soluong);
                     break;
                 default:
@@ -48,26 +85,30 @@ namespace Admin.Controllers
                     break;
             }
 
-            // Phân trang
+            // --- Phân trang ---
             int pageSize = 9;
             int pageNumber = (page ?? 1);
-
             int totalItems = sanPhams.Count();
             int totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
 
+            // --- Lưu trạng thái lọc để giữ lại khi chuyển trang ---
             ViewBag.TotalPages = totalPages;
             ViewBag.CurrentPage = pageNumber;
+
             ViewBag.CurrentCategory = categoryID;
-            ViewBag.CurrentSort = sortOrder;
+            ViewBag.CurrentBrand = brandID;
+            ViewBag.CurrentType = typeID;
+            ViewBag.CurrentSize = sizeID;
+            ViewBag.CurrentPrice = priceRange;
+            ViewBag.SearchString = searchString;
 
-            // Lấy dữ liệu trang hiện tại
-            var hienThiSP = sanPhams
-                            .Skip((pageNumber - 1) * pageSize)
-                            .Take(pageSize)
-                            .ToList();
+            var hienThiSP = sanPhams.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
 
-            // Lấy danh sách danh mục để đổ vào Sidebar bên trái
+            // --- Lấy dữ liệu cho Sidebar ---
             ViewBag.ListDanhMuc = db.DanhMuc.ToList();
+            ViewBag.ListThuongHieu = db.ThuongHieu.ToList();
+            ViewBag.ListLoai = db.LoaiSp.ToList(); 
+            ViewBag.ListSize = db.size.ToList(); 
 
             return View(hienThiSP);
         }
