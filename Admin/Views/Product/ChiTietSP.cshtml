@@ -336,7 +336,7 @@
 
 
             <div>
-                <form>
+                <form class="product-form">
                     <input type="hidden" id="masp" name="masp" value="@Model.masp" />
                     <input type="hidden" id="matk" name="matk" value="@Session["UserID"]" />
                     <label class="fw-bold mb-2">Màu sắc:</label>
@@ -515,6 +515,31 @@
     document.getElementById('inc').addEventListener('click', () => {
         let invalue = parseInt(val.value);
         val.value = invalue + 1;
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        document.querySelectorAll(".product-form").forEach(form => {
+
+            form.addEventListener("submit", function (e) {
+
+                const mau = this.querySelector("input[name='mam']:checked");
+                const size = this.querySelector("input[name='mas']:checked");
+
+                if (!mau) {
+                    e.preventDefault();
+                    alert("Vui lòng chọn màu sắc!");
+                    return;
+                }
+
+                if (!size) {
+                    e.preventDefault();
+                    alert("Vui lòng chọn kích cỡ!");
+                }
+            });
+
+        });
+
     });
 
 </script>

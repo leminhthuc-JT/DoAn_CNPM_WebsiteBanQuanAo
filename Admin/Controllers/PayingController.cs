@@ -14,10 +14,12 @@ namespace Admin.Controllers
         {
             SanPham sp = db.SanPham.Where(x => x.masp == masp).FirstOrDefault();
             TaiKhoan tk = db.TaiKhoan.Where(x => x.matk == matk).FirstOrDefault();
+            string anh = db.CTSanPham.Where(x => x.masp == masp && x.mam == mam && x.mas == mas).Select(x => x.link).FirstOrDefault();
             ViewBag.SL = quantity;
             ViewBag.Mau = mam;
             ViewBag.Size = mas;
             ViewBag.Gia = sp.giaban * quantity;
+            ViewBag.Anh = anh;
             return View();
         }
     }
