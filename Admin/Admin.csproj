@@ -49,11 +49,6 @@
       <HintPath>packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="QRCoder, Version=1.7.0.0, Culture=neutral, PublicKeyToken=c4ed5b9ae8358a28, processorArchitecture=MSIL">
-      <HintPath>packages\QRCoder.1.7.0\lib\net40\QRCoder.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -121,7 +116,6 @@
       <Private>True</Private>
       <HintPath>packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
@@ -137,7 +131,6 @@
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\PayingController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="CTHoaDon.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -216,11 +209,11 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\Css\Contact.css" />
     <Content Include="Content\Css\Login.css" />
     <Content Include="Content\Css\Register.css" />
     <Content Include="Content\Css\Style.css" />
     <Content Include="Content\Css\StyleAdmin.css" />
-    <Content Include="Content\Css\VerifyOTP.css" />
     <Content Include="Content\ImageSP\aolennamnau.png" />
     <Content Include="Content\ImageSP\aolennamxam.png" />
     <Content Include="Content\ImageSP\aolennamxanhden.png" />
@@ -231,6 +224,7 @@
     <Content Include="Content\ImageSP\aophaonambe.png" />
     <Content Include="Content\ImageSP\aophaonamden.png" />
     <Content Include="Content\ImageSP\aophaonamxanhden.png" />
+    <Content Include="Content\Css\VerifyOTP.css" />
     <Content Include="Content\ImageSP\bgmacdinh.png" />
     <Content Include="Content\ImageSP\caogotbe.png" />
     <Content Include="Content\ImageSP\caogotden.png" />
@@ -297,6 +291,7 @@
     <Content Include="Content\Image\sale_5.png" />
     <Content Include="Content\Image\sale_6.png" />
     <Content Include="Content\Image\sale_7.png" />
+    <Content Include="Content\Message\contact_messages.txt" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -350,11 +345,16 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\VerifyOTP.cshtml" />
-    <Content Include="Views\Paying\Index.cshtml" />
-    <Content Include="Views\Product\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Content Include="Views\Paying\Index.cshtml" />
+    <Content Include="Views\Product\Index.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Views\Cart\" />
     <Folder Include="Views\ShoppingCart\" />
   </ItemGroup>
   <ItemGroup>

@@ -71,6 +71,20 @@ namespace Admin.Controllers
         [HttpPost]
         public ActionResult Register(string username, string password, string fullname, string email, string phone)
         {
+            //Kiểm tra email
+            if (!CheckEmail(email))
+            {
+                ViewBag.Error = "Email không hợp lệ!";
+                return View();
+            }    
+
+            //Kiểm tra số điện thoại
+            if (!CheckPhone(phone))
+            {
+                ViewBag.Error = "Số điện thoại không hợp lệ!";
+                return View();
+            }    
+
             //Kiểm tra username trùng
             if (db.TaiKhoan.Any(t => t.tenkh == username))
             {
@@ -194,6 +208,48 @@ namespace Admin.Controllers
             Session.Abandon();       
 
             return RedirectToAction("Index", "Home");
+        }
+
+        private bool CheckEmail(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+                return false;
+
+            if (email.Contains(" "))
+                return false;
+
+            int atIndex = email.IndexOf('@');
+            int dotIndex = email.LastIndexOf('.');
+
+            // phải có @, có . sau @
+            if (atIndex <= 0 || dotIndex <= atIndex + 1)
+                return false;
+
+            // không được kết thúc bằng .
+            if (dotIndex == email.Length - 1)
+                return false;
+
+            return true;
+        }
+
+        private bool CheckPhone(string phone)
+        {
+            if (string.IsNullOrWhiteSpace(phone))
+                return false;
+
+            if (phone.Length != 10)
+                return false;
+
+            if (!phone.All(char.IsDigit))
+                return false;
+
+            if (!phone.StartsWith("0"))
+                return false;
+
+            string prefix = phone.Substring(0, 2);
+            string[] validPrefixes = { "03", "05", "07", "08", "09" };
+
+            return validPrefixes.Contains(prefix);
         }
     }
 }
