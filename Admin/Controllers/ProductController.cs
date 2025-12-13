@@ -18,6 +18,10 @@ namespace Admin.Controllers
             ViewBag.LQ = lienquan;
             var thuongHieu = db.ThuongHieu.FirstOrDefault(t => t.math == sp.math);
             ViewBag.TH = thuongHieu.tenth;
+            List<CTSanPham> color = db.CTSanPham.Where(r => r.masp == masp).GroupBy(r => r.mam).Select(g => g.FirstOrDefault()).ToList();
+            List<CTSanPham> size = db.CTSanPham.Where(r => r.masp == masp).GroupBy(r => r.mas).Select(g => g.FirstOrDefault()).ToList();
+            ViewBag.Image = color;
+            ViewBag.Size = size;
             return View(sp);
         }
     }
