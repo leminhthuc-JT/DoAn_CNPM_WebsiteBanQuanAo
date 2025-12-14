@@ -45,12 +45,10 @@
                                 @* NÚT HỦY ĐƠN *@
                                 @if (item.tinhtrang == "Chờ xác nhận")
                                 {
-                                    using (Html.BeginForm("CancelOrder", "Order",new { id = item.mahd }, FormMethod.Post))
-                                    {
-                                        <button type="submit" class="btn btn-sm btn-danger">
-                                            Hủy đơn
-                                        </button>
-                                    }
+                                    <a href="@Url.Action("Cancel", "Order", new { id = item.mahd })"
+                                       class="btn btn-sm btn-danger">
+                                        Hủy đơn
+                                    </a>
                                 }
 
                                 @* Đánh giá *@

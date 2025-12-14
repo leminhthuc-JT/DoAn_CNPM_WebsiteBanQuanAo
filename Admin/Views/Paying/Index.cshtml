@@ -320,7 +320,7 @@
     }
     else
     {
-        <form method="post" action="@Url.Action("ThanhToanCOD", "Paying")">
+        <form method="post" action="#">
             <button type="submit"
                     class="btn btn-order w-100">
                 ĐẶT HÀNG
@@ -359,12 +359,10 @@
                 Hủy
             </a>
 
-            <form method="post" action="@Url.Action("XacNhanThanhToan", "Paying")">
-                <button type="submit"
-                        class="modal-btn modal-btn-confirm">
-                    Xác nhận
-                </button>
-            </form>
+            <a href="#"
+               class="modal-btn modal-btn-confirm">
+                Xác nhận
+            </a>
         </div>
 
     </div>
