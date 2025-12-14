@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "Đánh giá đơn hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (TempData["SuccessReview"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessReview"]
+    </div>
+}
+
+<div class="container mt-5 pt-4" style="max-width:600px">
+    <h4 class="fw-bold mb-4">Đánh giá đơn hàng #@ViewBag.MaHD</h4>
+
+    <form method="post" action="/Order/ReviewOrder">
+        <input type="hidden" name="mahd" value="@ViewBag.MaHD" />
+
+        <div class="mb-3">
+            <label class="fw-bold">Số sao</label>
+            <select name="sosao" class="form-select" required>
+                <option value="">-- Chọn --</option>
+                <option value="5">★★★★★</option>
+                <option value="4">★★★★</option>
+                <option value="3">★★★</option>
+                <option value="2">★★</option>
+                <option value="1">★</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="fw-bold">Nội dung đánh giá</label>
+            <textarea name="mota"
+                      class="form-control"
+                      rows="4"
+                      required></textarea>
+        </div>
+
+        <button class="btn btn-dark">Gửi đánh giá</button>
+    </form>
+</div>

@@ -125,6 +125,10 @@ namespace Admin.Controllers
             List<CTSanPham> size = db.CTSanPham.Where(r => r.masp == masp).GroupBy(r => r.mas).Select(g => g.FirstOrDefault()).ToList();
             ViewBag.Image = color;
             ViewBag.Size = size;
+
+            var reviews = db.BinhLuan.Where(bl => bl.masp == masp).OrderByDescending(bl => bl.ngay).ToList();
+
+            ViewBag.Reviews = reviews;
             return View(sp);
         }
     }
