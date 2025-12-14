@@ -6,6 +6,7 @@ using System.Net.Mail;
 using System.Security.Policy;
 using System.Web;
 using System.Web.Mvc;
+using System.IO;
 
 namespace Admin.Controllers
 {
@@ -38,9 +39,14 @@ namespace Admin.Controllers
         [HttpPost]
         public ActionResult Login(string username, string password)
         {
+            username = username?.Trim();
+            password = password?.Trim();
+
             var user = db.TaiKhoan
-                         .FirstOrDefault(t => t.tenkh == username
-                                           && t.matkhau == password);
+                 .FirstOrDefault(t =>
+                     t.tenkh.Trim() == username &&
+                     t.matkhau.Trim() == password
+                 );
 
             if (user == null)
             {
@@ -51,6 +57,8 @@ namespace Admin.Controllers
             Session["UserID"] = user.matk;
             Session["UserName"] = user.tenkh;
             Session["Role"] = user.maquyen;
+
+            Session["Avatar"] = string.IsNullOrEmpty(user.anhdaidien)? "macdinh.png": user.anhdaidien;
 
             //Nếu là admin
             if (user.maquyen == 1)
@@ -83,10 +91,10 @@ namespace Admin.Controllers
             {
                 ViewBag.Error = "Số điện thoại không hợp lệ!";
                 return View();
-            }    
+            }
 
             //Kiểm tra username trùng
-            if (db.TaiKhoan.Any(t => t.tenkh == username))
+            if (db.TaiKhoan.Any(t => t.tenkh.Trim() == username.Trim()))
             {
                 ViewBag.Error = "Tên đăng nhập đã tồn tại!";
                 return View();
@@ -152,12 +160,12 @@ namespace Admin.Controllers
             //Tạo tài khoản
             TaiKhoan tk = new TaiKhoan()
             {
-                tenkh = username,
-                matkhau = password,
+                tenkh = username.Trim(),
+                matkhau = password.Trim(),
                 gioitinh = null,
                 ngaysinh = null,
-                email = email,
-                sdt = phone,
+                email = email.Trim(),
+                sdt = phone.Trim(),
                 diachi = "",
                 anhdaidien = "macdinh.png",
                 maquyen = 2
@@ -200,6 +208,159 @@ namespace Admin.Controllers
 
             TempData["Success"] = "Mã OTP mới đã được gửi!";
             return RedirectToAction("VerifyOTP");
+        }
+
+        [HttpGet]
+        public ActionResult Profile()
+        {
+            if (Session["UserID"] == null)
+                return RedirectToAction("Login");
+
+            int id = (int)Session["UserID"];
+            var user = db.TaiKhoan.Find(id);
+
+            return View(user);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UpdateProfile(TaiKhoan model,HttpPostedFileBase AvatarFile)
+        {
+            if (Session["UserID"] == null)
+                return RedirectToAction("Login");
+
+            var user = db.TaiKhoan.Find(model.matk);
+
+            if (db.TaiKhoan.Any(t => t.sdt == model.sdt && t.matk != model.matk))
+            {
+                ViewBag.Error = "Số điện thoại đã được sử dụng!";
+                return View("Profile", user);
+            }
+
+            if (AvatarFile != null && AvatarFile.ContentLength > 2 * 1024 * 1024)
+            {
+                ViewBag.Error = "Ảnh không được vượt quá 2MB!";
+                return View("Profile", user);
+            }
+
+            if (AvatarFile != null && AvatarFile.ContentLength > 0)
+            {
+                string ext = Path.GetExtension(AvatarFile.FileName).ToLower();
+
+                string[] allowExt = { ".jpg", ".jpeg", ".png" };
+
+                if (!allowExt.Contains(ext))
+                {
+                    ViewBag.Error = "Chỉ cho phép ảnh JPG, PNG!";
+                    return View("Profile", user);
+                }
+
+                string fileName = "avatar_" + user.matk + ext;
+                string path = Server.MapPath("~/Content/Avatar/" + fileName);
+
+                AvatarFile.SaveAs(path);
+
+                user.anhdaidien = fileName;
+
+                Session["Avatar"] = fileName;
+            }
+
+            user.gioitinh = model.gioitinh;
+            user.ngaysinh = model.ngaysinh;
+            user.sdt = model.sdt;
+            user.diachi = model.diachi;
+
+            db.SaveChanges();
+
+            ViewBag.Message = "Cập nhật thông tin thành công!";
+            return View("Profile", user);
+        }
+
+        [HttpPost]
+        public ActionResult RequestChangeEmail(string newEmail)
+        {
+            if (!CheckEmail(newEmail))
+            {
+                TempData["ErrorEmail"] = "Email không hợp lệ!";
+                return RedirectToAction("Profile");
+            }
+
+            int userId = (int)Session["UserID"];
+
+            var user = db.TaiKhoan.Find(userId);
+
+            if (user.email.Trim().Equals(newEmail.Trim(), StringComparison.OrdinalIgnoreCase))
+            {
+                TempData["ErrorEmail"] = "Email mới phải khác email hiện tại!";
+                return RedirectToAction("Profile");
+            }
+
+            bool emailExists = db.TaiKhoan
+                .Any(t => t.email == newEmail && t.matk != userId);
+
+            if (emailExists)
+            {
+                TempData["ErrorEmail"] = "Email đã được sử dụng!";
+                return RedirectToAction("Profile");
+            }
+
+            string otp = new Random().Next(100000, 999999).ToString();
+
+            Session["NewEmail"] = newEmail;
+            Session["EmailOTP"] = otp;
+
+            SendOTPEmail(newEmail, otp);
+
+            TempData["ShowOTP"] = true;
+            return RedirectToAction("Profile");
+        }
+
+        [HttpPost]
+        public ActionResult ConfirmChangeEmail(string otp)
+        {
+            if (Session["EmailOTP"] == null || otp != Session["EmailOTP"].ToString())
+            {
+                TempData["ErrorEmail"] = "OTP không đúng!";
+                TempData["ShowOTP"] = true;
+                return RedirectToAction("Profile");
+            }
+
+            int id = (int)Session["UserID"];
+            var user = db.TaiKhoan.Find(id);
+
+            user.email = Session["NewEmail"].ToString();
+            db.SaveChanges();
+
+            Session.Remove("NewEmail");
+            Session.Remove("EmailOTP");
+
+            TempData["Message"] = "Đổi email thành công!";
+            return RedirectToAction("Profile");
+        }
+
+        [HttpPost]
+        public ActionResult ChangePassword(string currentPass, string newPass, string confirmPass)
+        {
+            int id = (int)Session["UserID"];
+            var user = db.TaiKhoan.Find(id);
+
+            if (user.matkhau.Trim() != currentPass.Trim())
+            {
+                TempData["ErrorPass"] = "Mật khẩu hiện tại không đúng!";
+                return RedirectToAction("Profile");
+            }
+
+            if (newPass != confirmPass)
+            {
+                TempData["ErrorPass"] = "Mật khẩu xác nhận không khớp!";
+                return RedirectToAction("Profile");
+            }
+
+            user.matkhau = newPass.Trim();
+            db.SaveChanges();
+
+            TempData["MessagePass"] = "Đổi mật khẩu thành công!";
+            return RedirectToAction("Profile");
         }
 
         public ActionResult Logout()

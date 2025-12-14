@@ -203,6 +203,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Avatar\macdinh.png" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -222,6 +223,7 @@
     <Content Include="Content\Css\Cart.css" />
     <Content Include="Content\Css\Contact.css" />
     <Content Include="Content\Css\Login.css" />
+    <Content Include="Content\Css\Profile.css" />
     <Content Include="Content\Css\Register.css" />
     <Content Include="Content\Css\Style.css" />
     <Content Include="Content\Css\StyleAdmin.css" />
@@ -360,6 +362,7 @@
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Account\Profile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

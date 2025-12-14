@@ -1,0 +1,153 @@
+﻿@model TaiKhoan
+@{
+    ViewBag.Title = "Thông tin cá nhân";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/Css/Profile.css" rel="stylesheet" />
+
+<div class="container mt-5 pt-4">
+    <h3 class="fw-bold mb-4">Hồ sơ cá nhân</h3>
+
+    <div class="row g-4">
+        <!--THÔNG TIN CÁ NHÂN-->
+        <div class="col-md-7">
+            @if (ViewBag.Error != null)
+            {
+                <div class="alert alert-danger">
+                    @ViewBag.Error
+                </div>
+            }
+            <div class="card p-4 shadow-sm">
+                <h5 class="fw-bold mb-3">Thông tin cá nhân</h5>
+
+                @if (Session["UploadError"] != null)
+                {
+                    <div class="alert alert-danger">
+                        @Session["UploadError"]
+                    </div>
+
+                    Session.Remove("UploadError");
+                }
+
+                @if (ViewBag.Message != null)
+                {
+                    <div class="alert alert-success">@ViewBag.Message</div>
+                }
+
+                @using (Html.BeginForm("UpdateProfile", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(m => m.matk)
+
+                    <div class="mb-3">
+                        <label>Giới tính</label>
+                        @Html.DropDownListFor(m => m.gioitinh,
+                            new SelectList(new[] { "Nam", "Nữ", "Khác" }),
+                            "Chọn giới tính",
+                            new { @class = "form-control" })
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Ngày sinh</label>
+                        @Html.TextBoxFor(m => m.ngaysinh, "{0:yyyy-MM-dd}",
+                            new { @class = "form-control", type = "date" })
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Số điện thoại</label>
+                        @Html.TextBoxFor(m => m.sdt, new { @class = "form-control" })
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Địa chỉ</label>
+                        @Html.TextAreaFor(m => m.diachi,
+                            new { @class = "form-control", rows = 3 })
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Ảnh đại diện</label>
+
+                        <div class="d-flex align-items-center gap-3">
+                            <img src="~/Content/Avatar/@Model.anhdaidien"
+                                 style="width:90px;height:90px;object-fit:cover;border-radius:50%;border:1px solid #ccc" />
+
+                            <input type="file"
+                                   name="AvatarFile"
+                                   class="form-control"
+                                   accept="image/*" />
+                        </div>
+                    </div>
+
+                    <button class="btn">Lưu thay đổi</button>
+                }
+            </div>
+
+            <!--ĐỔI EMAIL (OTP)-->
+            <div class="card p-4 mt-4 shadow-sm">
+                @if (TempData["ErrorEmail"] != null)
+                {
+                    <div class="alert alert-danger">
+                        <i class="fa-solid fa-circle-exclamation me-1"></i>
+                        @TempData["ErrorEmail"]
+                    </div>
+                }
+
+                @if (TempData["Message"] != null)
+                {
+                    <div class="alert alert-success">
+                        <i class="fa-solid fa-circle-check me-1"></i>
+                        @TempData["Message"]
+                    </div>
+                }
+                <h5 class="fw-bold mb-3">Đổi Email</h5>
+                <form method="post" action="/Account/RequestChangeEmail">
+                    <input type="email" name="newEmail"
+                           class="form-control mb-2"
+                           placeholder="Email mới" required />
+                    <button class="btn">Gửi OTP</button>
+                </form>
+
+                @if (TempData["ShowOTP"] != null)
+                {
+                    <form method="post" action="/Account/ConfirmChangeEmail" class="mt-3">
+                        <input type="text" name="otp"
+                               class="form-control mb-2"
+                               placeholder="Nhập OTP" required />
+                        <button class="btn">Xác nhận đổi email</button>
+                    </form>
+                }
+            </div>
+        </div>
+
+        <!--ĐỔI MẬT KHẨU-->
+        <div class="col-md-5">
+            <div class="card p-4 shadow-sm h-100">
+                <h5 class="fw-bold mb-3">Đổi mật khẩu</h5>
+
+                @if (TempData["ErrorPass"] != null)
+                {
+                    <div class="alert alert-danger">@TempData["ErrorPass"]</div>
+                }
+                @if (TempData["MessagePass"] != null)
+                {
+                    <div class="alert alert-success">@TempData["MessagePass"]</div>
+                }
+
+                <form method="post" action="/Account/ChangePassword">
+                    <input type="password" name="currentPass"
+                           class="form-control mb-2"
+                           placeholder="Mật khẩu hiện tại" required />
+
+                    <input type="password" name="newPass"
+                           class="form-control mb-2"
+                           placeholder="Mật khẩu mới" required />
+
+                    <input type="password" name="confirmPass"
+                           class="form-control mb-3"
+                           placeholder="Xác nhận mật khẩu" required />
+
+                    <button class="btn w-100">Đổi mật khẩu</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

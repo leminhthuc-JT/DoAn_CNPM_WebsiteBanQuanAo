@@ -37,13 +37,27 @@
                         @if (Session["UserName"] != null)
                         {
                             <li class="nav-item dropdown m-3 line">
-                                <a class="nav-link dropdown-toggle text-light fw-bold" href="#" id="userDropdown"
-                                   role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Xin chào, @Session["UserName"]
+                                @{
+                                    string avatarFile = Session["Avatar"] != null
+                                        ? Session["Avatar"].ToString()
+                                        : "macdinh.png";
+                                }
+
+                                <a class="nav-link dropdown-toggle d-flex align-items-center gap-2 text-light fw-bold"
+                                   href="#"
+                                   id="userDropdown"
+                                   role="button"
+                                   data-bs-toggle="dropdown"
+                                   aria-expanded="false">
+
+                                    <img src="~/Content/Avatar/@avatarFile"
+                                         style="width:32px;height:32px;object-fit:cover;border-radius:50%;border:1px solid #fff;" />
+
+                                    <span>@Session["UserName"]</span>
                                 </a>
 
                                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="userDropdown">
-                                    <li><a class="dropdown-item" href="#">Thông tin cá nhân</a></li>
+                                    <li><a class="dropdown-item" href="@Url.Action("Profile","Account")">Thông tin cá nhân</a></li>
                                     <li><a class="dropdown-item" href="#">Đơn hàng của tôi</a></li>
                                     <li><hr class="dropdown-divider" /></li>
                                     <li>
