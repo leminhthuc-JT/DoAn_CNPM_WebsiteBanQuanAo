@@ -92,5 +92,38 @@ namespace Admin.Controllers
 
             return (List<CartItem>)Session["Cart"];
         }
+
+        public ActionResult BuyNow(int masp, int mam, int mas, int quantity)
+        {
+            if (Session["UserID"] == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var sp = db.SanPham.Find(masp);
+            if (sp == null)
+                return RedirectToAction("Index", "Home");
+
+            var cart = Session["Cart"] as List<CartItem>;
+            if (cart == null)
+                cart = new List<CartItem>();
+
+            cart.Clear();
+
+            cart.Add(new CartItem
+            {
+                MaSP = sp.masp,
+                TenSP = sp.tensp,
+                Image = sp.anhchinh,
+                Gia = sp.giaban,
+                SoLuong = quantity,
+                MaMau = mam,
+                MaSize = mas
+            });
+
+            Session["Cart"] = cart;
+
+            return RedirectToAction("Index", "Paying");
+        }
     }
 }
