@@ -134,6 +134,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\ClientMnController.cs" />
+    <Compile Include="Controllers\CouponMnController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="CTHoaDon.cs">
@@ -442,9 +443,12 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\VerifyOTP.cshtml" />
+    <Content Include="Views\CouponMn\Index.cshtml" />
+    <Content Include="Views\CouponMn\Create.cshtml" />
+    <Content Include="Views\CouponMn\Edit.cshtml" />
+    <Content Include="Views\CouponMn\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Content Include="Views\Paying\Index.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />

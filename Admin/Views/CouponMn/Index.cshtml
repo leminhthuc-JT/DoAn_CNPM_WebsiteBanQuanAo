@@ -1,0 +1,63 @@
+﻿@model IEnumerable<GiamGia>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="card mt-4">
+    <div class="card-header bg-black text-white d-flex justify-content-between align-items-center">
+        <h4 class="fw-bold m-0">Quản lý Mã giảm giá (Coupon)</h4>
+        <a href="@Url.Action("Create")" class="btn btn-success"><i class="fa-solid fa-plus"></i> Thêm mã mới</a>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered table-hover text-center align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Mức giảm (%)</th>
+                    <th>Ngày bắt đầu</th>
+                    <th>Ngày kết thúc</th>
+                    <th>Trạng thái</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>#@item.magg</td>
+                        <td class="fw-bold text-danger">@item.mucgiam%</td>
+                        <td>@string.Format("{0:dd/MM/yyyy}", item.ngaybd)</td>
+                        <td>@string.Format("{0:dd/MM/yyyy}", item.ngaykt)</td>
+                        <td>
+                            @if (item.ngaykt < DateTime.Today)
+                            {
+                                <span class="badge bg-secondary p-2">
+                                    <i class="fa-solid fa-calendar-xmark"></i> Đã hết hạn
+                                </span>
+                            }
+                            else if (item.ngaybd > DateTime.Today)
+                            {
+                                <span class="badge bg-warning text-dark p-2">
+                                    <i class="fa-solid fa-clock"></i> Chưa diễn ra
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-success p-2">
+                                    <i class="fa-solid fa-check-circle"></i> Đang hoạt động
+                                </span>
+                            }
+                        </td>
+                        <td>
+                            <a href="@Url.Action("Edit", new { id = item.magg })" class="btn btn-sm btn-warning"><i class="fa-solid fa-pen"></i></a>
+                            <a href="@Url.Action("Delete", new { id = item.magg })" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

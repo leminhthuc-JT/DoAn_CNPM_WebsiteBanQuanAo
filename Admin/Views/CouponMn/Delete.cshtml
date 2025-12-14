@@ -1,0 +1,32 @@
+﻿@model GiamGia
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="card col-md-5 mx-auto mt-5 border-danger shadow">
+    <div class="card-header bg-danger text-white text-center">
+        <h4 class="m-0">XÁC NHẬN XÓA COUPON</h4>
+    </div>
+    <div class="card-body text-center">
+        <p class="fs-5">Bạn có chắc muốn xóa mã giảm giá này?</p>
+
+        <div class="alert alert-light border d-inline-block text-start" style="min-width: 250px;">
+            <p class="mb-1"><strong>ID:</strong> #@Model.magg</p>
+            <p class="mb-1 text-danger fw-bold"><strong>Mức giảm:</strong> @Model.mucgiam%</p>
+            <p class="mb-1"><strong>Ngày bắt đầu:</strong> @string.Format("{0:dd/MM/yyyy}", Model.ngaybd)</p>
+            <p class="mb-0"><strong>Ngày kết thúc:</strong> @string.Format("{0:dd/MM/yyyy}", Model.ngaykt)</p>
+        </div>
+
+        <div class="mt-4">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <button type="submit" class="btn btn-danger px-4">Xóa ngay</button>
+                <a href="@Url.Action("Index")" class="btn btn-secondary px-4">Hủy</a>
+            }
+        </div>
+    </div>
+</div>
+
