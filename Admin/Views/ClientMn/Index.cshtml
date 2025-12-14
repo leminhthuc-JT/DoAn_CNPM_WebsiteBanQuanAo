@@ -1,0 +1,64 @@
+﻿@model IEnumerable<TaiKhoan>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="card mt-4">
+    <div class="card-header bg-black text-white">
+        <h4 class="fw-bold m-0">Danh sách Tài khoản Hệ thống</h4>
+    </div>
+    <div class="card-body p-0">
+        <table class="table table-striped table-hover m-0">
+            <thead class="table-dark">
+                <tr>
+                    <th>Mã TK</th>
+                    <th>Thông tin người dùng</th>
+                    <th>Email / SĐT</th>
+                    <th>Quyền hiện tại</th>
+                    <th class="text-center">Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>#@item.matk</td>
+                        <td>
+                            <div class="d-flex align-items-center gap-2">
+                                <!-- Xử lý ảnh đại diện nếu null -->
+                                @{
+                                    var img = string.IsNullOrEmpty(item.anhdaidien) ? "macdinh.png" : item.anhdaidien;
+                                }
+                                <img src="~/Content/Avatar/@img" style="width:40px;height:40px;border-radius:50%; object-fit: cover" />
+                                <span class="fw-bold">@item.tenkh</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div><i class="fa-solid fa-envelope me-1"></i> @item.email</div>
+                            <div class="text-muted small"><i class="fa-solid fa-phone me-1"></i> @item.sdt</div>
+                        </td>
+                        <td>
+                            @if (item.maquyen == 1)
+                            {
+                                <span class="badge bg-danger rounded-pill">Quản trị viên (Admin)</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-success rounded-pill">Khách hàng</span>
+                            }
+                        </td>
+                        <td class="text-center">
+                            <a href="@Url.Action("Edit", new { id = item.matk })" class="btn btn-sm btn-outline-primary" title="Phân quyền">
+                                <i class="fa-solid fa-user-shield"></i> Phân quyền
+                            </a>
+                            <a href="@Url.Action("Delete", new { id = item.matk })" class="btn btn-sm btn-outline-danger" title="Xóa tài khoản">
+                                <i class="fa-solid fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
