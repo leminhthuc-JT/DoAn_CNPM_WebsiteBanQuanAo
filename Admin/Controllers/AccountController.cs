@@ -63,7 +63,7 @@ namespace Admin.Controllers
             //Nếu là admin
             if (user.maquyen == 1)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Admin");
             }
 
             //Nếu là customer

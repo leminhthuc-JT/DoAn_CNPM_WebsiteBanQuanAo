@@ -1,0 +1,208 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="~/Content/bootstrap.css" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="/Content/Css/Style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="~/Scripts/jquery-3.7.1.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <link href="~/Content/Cssad/StyleSheet1.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Content/bootstrap/js/bootstrap.min.js"></script>
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <!--Navbar-->
+    <div>
+        <nav class="navbar navbar-expand fixed-top navbar-dark bg-black">
+            <div class="navbar-overlay container align-items-center justify-content-around" style="height: 50px;">
+                <!-- Logo -->
+                <a class="navbar-brand w-25" href="#"><img src="~/Content/Image/logo_white.png" style="height: 70px;" /></a>
+
+                <div class="navbar-collapse w-75">
+                    <ul class="navbar-nav text-light">
+                        <li class="nav-item m-3 line">
+                            <a class="nav-link" href="@Url.Action("Index","Admin")"> Home </a>
+                        </li>
+                        @if (Session["UserName"] != null)
+                        {
+                            <li class="nav-item dropdown m-3 line">
+                                @{
+                                    string avatarFile = Session["Avatar"] != null
+                                        ? Session["Avatar"].ToString()
+                                        : "macdinh.png";
+                                }
+
+                                <a class="nav-link dropdown-toggle d-flex align-items-center gap-2 text-light fw-bold"
+                                   href="#"
+                                   id="userDropdown"
+                                   role="button"
+                                   data-bs-toggle="dropdown"
+                                   aria-expanded="false">
+
+                                    <img src="~/Content/Avatar/@avatarFile"
+                                         style="width:32px;height:32px;object-fit:cover;border-radius:50%;border:1px solid #fff;" />
+
+                                    <span>@Session["UserName"]</span>
+                                </a>
+
+                                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="userDropdown">
+                                    <li><a class="dropdown-item" href="@Url.Action("Profile","Account")">Thông tin cá nhân</a></li>
+                                    @*<li><a class="dropdown-item" href="#">Đơn hàng của tôi</a></li>*@
+                                    <li><hr class="dropdown-divider" /></li>
+                                    <li>
+                                        <a class="dropdown-item text-danger fw-bold" href="/Account/Logout">
+                                            <i class="fa-solid fa-right-from-bracket"></i> Đăng xuất
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            @*<li class="nav-item m-3 line">
+                                <a class="nav-link" href="@Url.Action("Index","Cart")">
+                                    <i class="fa-solid fa-bag-shopping" style="font-size: 20px;"></i>
+                                </a>
+                            </li>*@
+                        }
+                        else
+                        {
+                            <li class="nav-item m-3 line">
+                                <a class="nav-link" href="/Account/Register"> Register </a>
+                            </li>
+                            <li class="nav-item m-3 line">
+                                <a class="nav-link" href="/Account/Login"> Login </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+                <div>
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder=" Search" aria-label="Search" style="width: 300px; height: 40px; border-radius: 20px;" />
+                        <button class="btn btn-outline-light" type="submit" style="width: 40px; height: 40px; border-radius: 20px;"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!-- MAIN -->
+    <main class="container site-main mt-5">
+        <!-- Sidebar -->
+        <aside class="sidebar mt-4">
+            <h3 class="fw-bold">Bảng điều khiển</h3>
+            <ul class="category-list">
+                <li><a href="#">DashBoard</a></li>
+                <li><a href="@Url.Action("Index","ClientMn")">Quản lý Tài khoản</a></li>
+                <li><a href="#">Quản lý khách hàng</a></li>
+                <li><a href="#">Quản lý kho hàng</a></li>
+                <li><a href="#">Quản lý đơn hàng</a></li>
+                <li><a href="#">Quản lý mã giảm giá</a></li>
+                <li><a href="#">Cài đặt</a></li>
+            </ul>
+        </aside>
+        <!-- Sidebar -->
+        <section class="products mt-4">
+            @RenderBody()
+        </section>
+    </main>
+    <!-- MAIN -->
+    <!--Footer-->
+    <footer class="footer p-5 bg-black" style="color: white; margin-top: 20px;">
+        <div class="footer-container row row-cols-4">
+            <!-- Cột 1: Thông tin liên hệ -->
+            <div class="footer-column">
+                <h3>LIÊN HỆ</h3>
+                <p><b>Địa chỉ:</b> 140 Lê Trọng Tấn, phường Sơn Kỳ, quận Tân Phú, TP. HCM</p>
+                <p><b>Hotline:</b> 0907 123 456</p>
+                <p><b>Email:</b> contact@Tosixstore.vn</p>
+                <p><b>Thời gian làm việc:</b> Thứ 2 - Chủ nhật, 8:00 - 21:00</p>
+                <p>
+                    <b>Chi nhánh khác:</b><br>
+                    - 45 Nguyễn Thị Minh Khai, Q.1, TP.HCM<br>
+                    - 12 Đinh Tiên Hoàng, Q. Bình Thạnh, TP.HCM
+                </p>
+            </div>
+
+            <!-- Cột 2: Liên kết nhanh -->
+            <div class="footer-column">
+                <h3>LIÊN KẾT NHANH</h3>
+                <ul style="list-style-type: none">
+                    <li><a href="#" style="color: white">Giới thiệu</a></li>
+                    <li><a href="#" style="color: white">Bài đăng</a></li>
+                    <li><a href="#" style="color: white">Thông tin đăng ký</a></li>
+                    <li><a href="#" style="color: white">Hỗ trợ</a></li>
+                    <li><a href="#" style="color: white">Chính sách bảo mật</a></li>
+                    <li><a href="#" style="color: white">Điều khoản sử dụng</a></li>
+                    <li><a href="#" style="color: white">Tuyển dụng</a></li>
+                    <li><a href="#" style="color: white">Liên hệ hợp tác</a></li>
+                </ul>
+            </div>
+
+            <!-- Cột 3: Theo dõi & Đăng ký -->
+            <div class="footer-column">
+                <h3>THEO DÕI CHÚNG TÔI</h3>
+                <p>
+                    <a href="#"><i class="fa-brands fa-facebook me-2" style="color: white "></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram me-2" style="color: white "></i></a>
+                    <a href="#"><i class="fa-brands fa-tiktok me-2" style="color: white "></i></a>
+                    <a href="#"><i class="fa-brands fa-youtube me-2" style="color: white "></i></a>
+                    <a href="#"><i class="fa-brands fa-twitter me-2" style="color: white "></i></a>
+                </p>
+
+                <h3>ĐĂNG KÝ NHẬN TIN</h3>
+                <form class="subscribe-form">
+                    <div class="d-flex">
+                        <input class="form-control me-3 mb-2" type="email" placeholder="Nhập email của bạn..." required style="width: calc(100% - 200px)">
+                        <button class="btn btn-primary mb-2" type="submit" style="width: 100px;">Đăng ký</button>
+                    </div>
+                </form>
+
+                <p>Nhận ngay các ưu đãi, mã giảm giá và thông tin về sản phẩm mới mỗi tuần!</p>
+            </div>
+
+            <!-- Cột 4: Giới thiệu thêm -->
+            <div class="footer-column">
+                <h3>GIỚI THIỆU NHÀ SÁCH</h3>
+                <p>
+                    ToSix Store là cửa hàng thời trang hiện đại tại Việt Nam,
+                    cung cấp nhiều thể loại quần áo chất lượng từ trong nước và quốc tế.
+                    Chúng tôi cam kết mang đến cho bạn trải nghiệm đọc phong phú, dịch vụ giao hàng nhanh chóng,
+                    và chương trình ưu đãi hấp dẫn quanh năm.
+                </p>
+                <p>
+                    Ngoài ra, ToSix Store còn là nơi giao lưu của những người đam mê với thời trang hiện đại —
+                    nơi bạn có thể chia sẻ cảm nhận, viết đánh giá, và khám phá những sản phẩm tốt nhất.
+                </p>
+                <p><b>“ToSix - Cửa hàng thời trang hiện đại”</b></p>
+            </div>
+        </div>
+
+        <!-- Bản đồ -->
+        <div style="margin-top: 10px;">
+            <h5 style="margin-bottom: 15px;">VỊ TRÍ CỬA HÀNG</h5>
+            <iframe src="https://www.google.com/maps?q=140+Lê+Trọng+Tấn,+Tân+Phú,+TP+HCM&output=embed"
+                    style="width: 100%; height: 250px; border: 0; border-radius: 8px;"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+
+        <hr>
+        <div class="footer-bottom text-center">
+            <p>&copy; 2025 ToSix Store. Cửa hàng thời trang ToSix Store – Mọi quyền được bảo lưu.</p>
+            <p>
+                <a href="#">Chính sách đổi trả</a> |
+                <a href="#">Hướng dẫn mua hàng</a> |
+                <a href="#">Hợp tác xuất bản</a>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
