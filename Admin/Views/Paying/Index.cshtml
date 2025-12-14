@@ -368,21 +368,60 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
+
         const vouchers = document.querySelectorAll(".voucher-item");
         const btn = document.getElementById("btnXemThem");
-        const LIMIT = 2;
+
+        const SHOW_LIMIT = 2;
 
         vouchers.forEach((v, i) => {
-            if (i < LIMIT) v.classList.add("show");
+            if (i < SHOW_LIMIT) {
+                v.classList.add("show");
+            }
         });
 
-        let open = false;
-        btn.onclick = () => {
-            open = !open;
-            vouchers.forEach(v => v.classList.toggle("show", open));
-            btn.innerText = open ? "Thu gọn" : "Xem thêm";
-        };
+        let expanded = false;
+
+        btn.addEventListener("click", function () {
+
+            expanded = !expanded;
+
+            vouchers.forEach((v, i) => {
+                if (expanded || i < SHOW_LIMIT) {
+                    v.classList.add("show");
+                } else {
+                    v.classList.remove("show");
+                }
+            });
+
+            btn.innerText = expanded ? "Thu gọn" : "Xem thêm...";
+        function showDefault() {
+            vouchers.forEach((v, i) => {
+                if (i < LIMIT) {
+                    v.classList.add("show");
+                } else {
+                    v.classList.remove("show");
+                }
+            });
+        }
+
+        showDefault();
+
+        let expanded = false;
+
+        btn.addEventListener("click", function () {
+            expanded = !expanded;
+
+            if (expanded) {
+                vouchers.forEach(v => v.classList.add("show"));
+                btn.innerText = "Thu gọn";
+            } else {
+                showDefault();
+                btn.innerText = "Xem thêm";
+            }
+        });
     });
+
 
     document.querySelectorAll('.QRbank').forEach(btn => {
         btn.addEventListener('click', function () {
