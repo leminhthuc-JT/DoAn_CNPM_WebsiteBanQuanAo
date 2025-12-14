@@ -28,7 +28,7 @@ namespace Admin.Controllers
 
 
 
-        public ActionResult AddToCart(int masp, int quantity = 1)
+        public ActionResult AddToCart(int masp, int mam, int mas, int quantity = 1)
         {
             var cart = GetCart();
 
@@ -50,6 +50,8 @@ namespace Admin.Controllers
                 cart.Add(new CartItem
                 {
                     MaSP = masp,
+                    MaMau = mam,
+                    MaSize = mas,
                     TenSP = sp.tensp,
                     Gia = sp.giaban,
                     SoLuong = quantity,

@@ -51,11 +51,87 @@ namespace Admin.Controllers
             ViewBag.TK = db.TaiKhoan.Find(matk);
 
             ViewBag.GG = db.GiamGia.ToList();
+            Session["MaGG"] = gg;
+            Session["Ship"] = ship;
 
             return View();
         }
 
+        private void TaoHoaDon(string hinhThucThanhToan)
+        {
+            var cart = Session["Cart"] as List<CartItem>;
+            if (cart == null || !cart.Any())
+                return;
 
+            int matk = (int)Session["UserID"];
+
+            // ✅ LẤY GIẢM GIÁ & SHIP TỪ SESSION (ổn định nhất)
+            int magg = Session["MaGG"] != null ? (int)Session["MaGG"] : 0;
+            decimal ship = Session["Ship"] != null ? (decimal)Session["Ship"] : 0;
+
+            decimal tienHang = cart.Sum(x => x.ThanhTien);
+            decimal tienGiam = 0;
+
+            if (magg > 0)
+            {
+                var gg = db.GiamGia.FirstOrDefault(x => x.magg == magg);
+                if (gg != null)
+                    tienGiam = tienHang * (gg.mucgiam ?? 0) / 100;
+            }
+
+            decimal tongTien = tienHang + ship - tienGiam;
+
+            HoaDon hd = new HoaDon
+            {
+                matk = matk,
+                magg = magg > 0 ? (int?)magg : null,
+                ngaylap = DateTime.Now,
+                diachigiaohang = db.TaiKhoan.Find(matk).diachi,
+                tinhtrang = "Chờ xác nhận",
+                dathanhtoan = hinhThucThanhToan == "ONLINE",
+                tongtien = tongTien // ✅ GÁN LUÔN – KHÔNG CHỜ TRIGGER
+            };
+
+            db.HoaDon.Add(hd);
+            db.SaveChanges();
+
+            foreach (var item in cart)
+            {
+                var ct = new CTHoaDon
+                {
+                    mahd = hd.mahd,
+                    masp = item.MaSP,
+                    mam = item.MaMau,
+                    mas = item.MaSize,
+                    soluong = item.SoLuong,
+                    dongia = item.Gia
+                };
+
+                db.CTHoaDon.Add(ct);
+            }
+
+            db.SaveChanges();
+
+            // XÓA SESSION
+            Session.Remove("Cart");
+            Session.Remove("MaGG");
+            Session.Remove("Ship");
+        }
+
+
+        [HttpPost]
+        public ActionResult ThanhToanCOD()
+        {
+            TaoHoaDon("COD");
+            return RedirectToAction("MyOrders", "Order");
+        }
+
+        [HttpPost]
+        public ActionResult XacNhanThanhToan()
+        {
+            TaoHoaDon("ONLINE");
+            return RedirectToAction("MyOrders", "Order");
+        }
 
         public ActionResult QRThanhToan(decimal soTien, string noiDung)
         {

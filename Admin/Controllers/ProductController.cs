@@ -116,19 +116,33 @@ namespace Admin.Controllers
         public ActionResult ChiTietSP(int masp)
         {
             var sp = db.SanPham.FirstOrDefault(s => s.masp == masp);
-            //sản phẩm liên quan
-            List<SanPham> lienquan = db.SanPham.Where(s => s.madm == sp.madm || s.maloai == sp.maloai || s.math == sp.math && s.masp != masp).ToList();
-            ViewBag.LQ = lienquan;
-            var thuongHieu = db.ThuongHieu.FirstOrDefault(t => t.math == sp.math);
-            ViewBag.TH = thuongHieu.tenth;
-            List<CTSanPham> color = db.CTSanPham.Where(r => r.masp == masp).GroupBy(r => r.mam).Select(g => g.FirstOrDefault()).ToList();
-            List<CTSanPham> size = db.CTSanPham.Where(r => r.masp == masp).GroupBy(r => r.mas).Select(g => g.FirstOrDefault()).ToList();
-            ViewBag.Image = color;
-            ViewBag.Size = size;
+            if (sp == null) return HttpNotFound();
 
-            var reviews = db.BinhLuan.Where(bl => bl.masp == masp).OrderByDescending(bl => bl.ngay).ToList();
+            // Sản phẩm liên quan (SỬA LOGIC)
+            ViewBag.LQ = db.SanPham
+                .Where(s =>
+                    (s.madm == sp.madm || s.maloai == sp.maloai || s.math == sp.math)
+                    && s.masp != masp
+                )
+                .ToList();
 
-            ViewBag.Reviews = reviews;
+            // Thương hiệu
+            ViewBag.TH = db.ThuongHieu
+                .Where(t => t.math == sp.math)
+                .Select(t => t.tenth)
+                .FirstOrDefault();
+
+            // 🔥 CHỈ DÙNG 1 NGUỒN DUY NHẤT
+            ViewBag.CTSP = db.CTSanPham
+                .Where(x => x.masp == masp)
+                .ToList();
+
+            // Đánh giá
+            ViewBag.Reviews = db.BinhLuan
+                .Where(bl => bl.masp == masp)
+                .OrderByDescending(bl => bl.ngay)
+                .ToList();
+
             return View(sp);
         }
     }

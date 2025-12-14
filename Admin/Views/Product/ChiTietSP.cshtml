@@ -5,6 +5,8 @@
     var lienquan = (List<SanPham>)ViewBag.LQ;
     var TH = ViewBag.TH;
     var reviews = ViewBag.Reviews as List<BinhLuan>;
+    var ctsp = ViewBag.CTSP as List<CTSanPham>;
+
 }
 <style>
     /* Style cho phần tiêu đề */
@@ -225,20 +227,19 @@
         }
 
         .color-option span {
-            display: inline-block;
-            padding: 8px 16px;
-            border: 1px solid #ccc;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 10px;
+            border: 2px solid #ccc;
             border-radius: 6px;
             cursor: pointer;
             transition: 0.2s;
-            font-size: 14px;
         }
 
         .color-option input:checked + span {
-            border-color:rgba(0,0,0,0.4);
-            background-color: rgba(0,0,0,0.4);
-            color: #fff;
-            font-weight: 600;
+            border-color: black;
+            background-color: rgba(0,0,0,0.05);
         }
     /* Quantity & Buttons */
     .qty-btn {
@@ -342,21 +343,31 @@
                     <input type="hidden" id="matk" name="matk" value="@Session["UserID"]" />
                     <label class="fw-bold mb-2">Màu sắc:</label>
                     <div class="d-flex gap-2 flex-wrap">
-                        @foreach (var m in ViewBag.Image)
+
+                        @foreach (var m in ctsp.GroupBy(x => x.mam).Select(g => g.First()))
                         {
                             <label class="color-option">
-                                <input type="radio" name="mam" value="@m.mam" />
-                                <span>@m.mau.tenm</span>
+                                <input type="radio"
+                                       name="mam"
+                                       value="@m.mam"
+                                       onclick="change('@m.link')" />
+
+                                <span>
+                                    <img src="~/Content/ImageSP/@m.link"
+                                         style="width:40px;height:40px;object-fit:contain;" />
+                                    @m.mau.tenm
+                                </span>
                             </label>
                         }
+
                     </div>
                     <label class="fw-bold mb-2">Kích cỡ:</label>
                     <div class="d-flex gap-2 flex-wrap">
-                        @foreach (var m in ViewBag.Size)
+                        @foreach (var s in ctsp.GroupBy(x => x.mas).Select(g => g.First()))
                         {
                             <label class="color-option">
-                                <input type="radio" name="mas" value="@m.mas" />
-                                <span>@m.size.tens</span>
+                                <input type="radio" name="mas" value="@s.mas" />
+                                <span>@s.size.tens</span>
                             </label>
                         }
                     </div>
