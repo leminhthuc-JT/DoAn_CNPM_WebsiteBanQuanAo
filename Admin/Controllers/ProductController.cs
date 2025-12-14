@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -35,7 +35,7 @@ namespace Admin.Controllers
                 sanPhams = sanPhams.Where(s => s.maloai == typeID);
             }
 
-            // 5. Lọc theo Size (Cần join bảng CTSanPham)
+            //Lọc theo Size
             if (sizeID != null)
             {
                 // Lấy ra danh sách ID sản phẩm có size này
@@ -43,7 +43,7 @@ namespace Admin.Controllers
                 sanPhams = sanPhams.Where(s => spCoSize.Contains(s.masp));
             }
 
-            // 6. Lọc theo Mức giá (Chuỗi dạng "min-max")
+            //Lọc theo Mức giá
             if (!String.IsNullOrEmpty(priceRange))
             {
                 if (priceRange == "under100")
@@ -64,7 +64,7 @@ namespace Admin.Controllers
                 }
             }
 
-            // --- Sắp xếp ---
+            //Sắp xếp 
             ViewBag.CurrentSort = sortOrder;
             switch (sortOrder)
             {
@@ -85,7 +85,7 @@ namespace Admin.Controllers
                     break;
             }
 
-            // --- Phân trang ---
+            //Phân trang
             int pageSize = 9;
             int pageNumber = (page ?? 1);
             int totalItems = sanPhams.Count();
@@ -118,7 +118,7 @@ namespace Admin.Controllers
             var sp = db.SanPham.FirstOrDefault(s => s.masp == masp);
             if (sp == null) return HttpNotFound();
 
-            // Sản phẩm liên quan (SỬA LOGIC)
+            //Sản phẩm liên quan (SỬA LOGIC)
             ViewBag.LQ = db.SanPham
                 .Where(s =>
                     (s.madm == sp.madm || s.maloai == sp.maloai || s.math == sp.math)
@@ -126,7 +126,7 @@ namespace Admin.Controllers
                 )
                 .ToList();
 
-            // Thương hiệu
+            //Thương hiệu
             ViewBag.TH = db.ThuongHieu
                 .Where(t => t.math == sp.math)
                 .Select(t => t.tenth)

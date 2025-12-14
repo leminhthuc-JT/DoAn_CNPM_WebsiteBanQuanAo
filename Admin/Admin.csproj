@@ -49,11 +49,6 @@
       <HintPath>packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="QRCoder, Version=1.7.0.0, Culture=neutral, PublicKeyToken=c4ed5b9ae8358a28, processorArchitecture=MSIL">
-      <HintPath>packages\QRCoder.1.7.0\lib\net40\QRCoder.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -121,7 +116,6 @@
       <Private>True</Private>
       <HintPath>packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
@@ -140,6 +134,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\ClientMnController.cs" />
+    <Compile Include="Controllers\CouponMnController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\PayingController.cs" />
@@ -269,7 +264,6 @@
     <Content Include="Content\Css\Register.css" />
     <Content Include="Content\Css\Style.css" />
     <Content Include="Content\Css\StyleAdmin.css" />
-    <Content Include="Content\Css\VerifyOTP.css" />
     <Content Include="Content\ImageSP\aolennamnau.png" />
     <Content Include="Content\ImageSP\aolennamxam.png" />
     <Content Include="Content\ImageSP\aolennamxanhden.png" />
@@ -280,6 +274,7 @@
     <Content Include="Content\ImageSP\aophaonambe.png" />
     <Content Include="Content\ImageSP\aophaonamden.png" />
     <Content Include="Content\ImageSP\aophaonamxanhden.png" />
+    <Content Include="Content\Css\VerifyOTP.css" />
     <Content Include="Content\ImageSP\bgmacdinh.png" />
     <Content Include="Content\ImageSP\caogotbe.png" />
     <Content Include="Content\ImageSP\caogotden.png" />
@@ -450,6 +445,12 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\VerifyOTP.cshtml" />
+    <Content Include="Views\CouponMn\Index.cshtml" />
+    <Content Include="Views\CouponMn\Create.cshtml" />
+    <Content Include="Views\CouponMn\Edit.cshtml" />
+    <Content Include="Views\CouponMn\Delete.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Views\Paying\Index.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
