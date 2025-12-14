@@ -1,0 +1,37 @@
+﻿@model TaiKhoan
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6">
+        <div class="card border-danger shadow">
+            <div class="card-header bg-danger text-white text-center">
+                <h4 class="m-0"><i class="fa-solid fa-triangle-exclamation"></i> CẢNH BÁO XÓA TÀI KHOẢN</h4>
+            </div>
+            <div class="card-body text-center">
+                <p class="fs-5">Bạn có chắc chắn muốn xóa tài khoản này khỏi hệ thống?</p>
+                <p class="text-muted small">Hành động này sẽ xóa vĩnh viễn và không thể khôi phục.</p>
+
+                <div class="alert alert-light border d-inline-block text-start" style="min-width: 300px;">
+                    <p class="mb-1"><strong>Mã TK:</strong> @Model.matk</p>
+                    <p class="mb-1"><strong>Họ tên:</strong> @Model.tenkh</p>
+                    <p class="mb-1"><strong>Email:</strong> @Model.email</p>
+                    <p class="mb-0"><strong>Vai trò:</strong> @(Model.maquyen == 1 ? "Admin" : "Khách hàng")</p>
+                </div>
+
+                <div class="mt-4">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-danger px-4">Xác nhận Xóa</button>
+                        <a href="@Url.Action("Index")" class="btn btn-secondary px-4">Hủy bỏ</a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
