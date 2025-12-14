@@ -93,11 +93,13 @@ namespace Admin.Controllers
             if (Session["UserID"] == null)
                 return RedirectToAction("Login", "Account");
 
-            var order = db.HoaDon.Find(id);
+            var hd = db.HoaDon.Find(id);
+            if (hd == null)
+                return HttpNotFound();
 
-            if (order != null && order.tinhtrang == "Chờ xác nhận")
+            if (hd.tinhtrang == "Chờ xác nhận")
             {
-                order.tinhtrang = "Đã hủy";
+                hd.tinhtrang = "Đã hủy";
                 db.SaveChanges();
             }
 
@@ -116,7 +118,7 @@ namespace Admin.Controllers
                 return RedirectToAction("MyOrders");
 
             // Chỉ cho đổi trả khi đã giao hàng
-            if (order.tinhtrang == "Đã giao hàng")
+            if (order.tinhtrang == "Đã hoàn thành")
             {
                 order.tinhtrang = "Chờ đổi trả";
                 db.SaveChanges();
