@@ -186,114 +186,6 @@
             font-weight: bold;
             color: red;
         }
-    /* Description & Reviews */
-    .section-box {
-        background: white;
-        border-radius: 15px;
-        box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-        padding: 30px;
-        margin-bottom: 30px;
-    }
-
-    .desc-content {
-        line-height: 1.8;
-        color: var(--text-dark);
-        position: relative;
-    }
-
-    .desc-truncate {
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-    }
-
-    .btn-expand {
-        color: var(--primary-teal);
-        font-weight: 600;
-        cursor: pointer;
-        display: inline-block;
-        margin-top: 10px;
-    }
-    /*Màu*/
-    .color-option {
-        position: relative;
-    }
-
-        .color-option input {
-            display: none;
-        }
-
-        .color-option span {
-            display: inline-block;
-            padding: 8px 16px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: 0.2s;
-            font-size: 14px;
-        }
-
-        .color-option input:checked + span {
-            border-color:rgba(0,0,0,0.4);
-            background-color: rgba(0,0,0,0.4);
-            color: #fff;
-            font-weight: 600;
-        }
-    /* Quantity & Buttons */
-    .qty-btn {
-        width: 40px;
-        height: 40px;
-        background: #edf2f7;
-        border: none;
-        font-weight: bold;
-        color: var(--primary-dark);
-        transition: 0.2s;
-    }
-
-        .qty-btn:hover {
-            background: #e2e8f0;
-        }
-
-    .qty-input {
-        width: 60px;
-        text-align: center;
-        border: 1px solid #edf2f7;
-        border-left: none;
-        border-right: none;
-        font-weight: 600;
-    }
-
-    .btn-tech-primary {
-        background: var(--gradient-tech);
-        color: white;
-        border: none;
-        font-weight: 600;
-        padding: 12px 30px;
-        border-radius: 8px;
-        transition: transform 0.2s;
-    }
-
-        .btn-tech-primary:hover {
-            transform: translateY(-2px);
-            color: white;
-            box-shadow: 0 4px 15px rgba(0,77,77,0.3);
-        }
-
-    .btn-tech-outline {
-        background: white;
-        color: var(--primary-teal);
-        border: 2px solid var(--primary-teal);
-        font-weight: 600;
-        padding: 12px 30px;
-        border-radius: 8px;
-        transition: all 0.2s;
-    }
-
-        .btn-tech-outline:hover {
-            background: #f0fff4;
-            transform: translateY(-2px);
-        }
 </style>
 <div class="container mt-5 pt-5">
 
@@ -307,22 +199,13 @@
         <!-- Cột TRÁI: Hình ảnh -->
         <div class="col-md-6 mb-4">
             <div class="border rounded p-4 d-flex justify-content-center align-items-center mb-3">
-                <img id="mainimg" src="~/Content/ImageSP/@Model.anhchinh" class="img-fluid" style="max-height: 400px;" onclick="change('@Model.anhchinh')" />
+                <img src="~/Content/ImageSP/@Model.anhchinh" class="img-fluid" style="max-height: 400px;" />
             </div>
             <!-- Hàng thumbnails giả lập (giống ảnh) -->
             <div class="d-flex gap-2 justify-content-start">
                 <!-- Lặp lại ảnh chính làm thumb mẫu -->
-                @*<img src="~/Content/ImageSP/@Model.anhchinh" class="thumb-img" />*@
-                @if (ViewBag.Image != null)
-                {
-                    <div class="thumbnail-container" style="margin: 0 auto;">
-                        @foreach (var img in ViewBag.Image)
-                        {
-                            <img class="thumb-img" src="~/Content/ImageSP/@img.link" onclick="change('@img.link')" />
-                        }
-                    </div>
-                }
-
+                <img src="~/Content/ImageSP/@Model.anhchinh" class="thumb-img" />
+                
             </div>
         </div>
 
@@ -334,6 +217,7 @@
             <p class="mb-2"><b>Ngày ra mắt:</b> @Model.ngaynhap</p>
             <p class="mb-3"><b>Số lượng:</b> @Model.soluong</p>
 
+<<<<<<< HEAD
 
 
             <div>
@@ -385,23 +269,36 @@
                         </div>
                     }
                 </form>
+=======
+            <div class="mb-4">
+                <b>Mô tả:</b>
+                <p class="text-muted mt-1">
+                    @Model.mota
+                    <br />
+                    Mũ lưỡi trai kaki - Nón kết Phối lưới phụ kiện thời tiết anh trang unisex cao cấp chống nắng...
+                    <a href="#" class="text-decoration-none text-dark">Xem thêm</a>
+                </p>
+>>>>>>> 258fae05d6c8039b09bf7b8722c2cae22b51aab6
             </div>
-            <!--Mô tả-->
-            <div class="mb-4 mt-4">
-                <strong class="">Mô tả:</strong>
-                <div class="desc-content">
-                    <div id="textdis" class="desc-truncate">
-                        @Html.Raw(Model.mota.Replace("\n", "<br>"))
-                    </div>
-                    <div id="btnXem" class="btn-expand text-center w-100 mt-2">
-                        <i class="fa-solid fa-chevron-down"></i> Xem thêm
-                    </div>
-                </div>
+
+            <!-- Nút bấm -->
+            <div class="d-flex gap-3">
+                <button class="btn btn-add-cart py-2 px-4 w-50">THÊM GIỎ HÀNG</button>
+                <button class="btn btn-buy-now py-2 px-4 w-50">MUA NGAY</button>
             </div>
         </div>
     </div>
 
     <!-- Phần Đánh giá (Review) -->
+<<<<<<< HEAD
+    <div class="mt-5">
+        <div class="d-flex align-items-center mb-3">
+            <h5 class="fw-bold me-3 mb-0">Đánh giá:</h5>
+            <span class="text-warning fs-5">
+                <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i>
+            </span>
+        </div>
+=======
     @if (reviews != null && reviews.Any())
     {
         foreach (var r in reviews)
@@ -414,6 +311,7 @@
                              class="user-avatar"
                              style="object-fit:cover;" />
                     </div>
+>>>>>>> 1c51ef331213275be17e3d2aebf5834e4bc02749
 
                     <!-- Nội dung -->
                     <div class="flex-grow-1">
@@ -476,67 +374,4 @@
 
 </div>
 
-<script>
-    function change(src) {
-        document.getElementById('mainimg').src = '/Content/ImageSP/' + src;
-        // Logic active thumbnail (tùy chọn)
-        document.querySelectorAll('.thumb-img').forEach(img => img.classList.remove('active'));
-        event.target.classList.add('active');
 
-
-    }
-
-    // Xem thêm mô tả
-    const textDesc = document.getElementById("textdis");
-    const btnExpand = document.getElementById("btnXem");
-
-    if (textDesc.scrollHeight <= textDesc.clientHeight) {
-        btnExpand.style.display = 'none'; // Ẩn nếu nội dung ngắn
-    }
-
-    btnExpand.onclick = () => {
-        textDesc.classList.toggle("desc-truncate");
-        if (!textDesc.classList.contains("desc-truncate")) {
-            btnExpand.innerHTML = '<i class="fa-solid fa-chevron-up"></i> Thu gọn';
-        } else {
-            btnExpand.innerHTML = '<i class="fa-solid fa-chevron-down"></i> Xem thêm';
-        }
-    };
-
-    // Tăng giảm số lượng
-    const val = document.getElementById('quantity');
-    document.getElementById('dec').addEventListener('click', () => {
-        let invalue = parseInt(val.value);
-        if (invalue > 1) val.value = invalue - 1;
-    });
-    document.getElementById('inc').addEventListener('click', () => {
-        let invalue = parseInt(val.value);
-        val.value = invalue + 1;
-    });
-
-    document.addEventListener("DOMContentLoaded", function () {
-
-        document.querySelectorAll(".product-form").forEach(form => {
-
-            form.addEventListener("submit", function (e) {
-
-                const mau = this.querySelector("input[name='mam']:checked");
-                const size = this.querySelector("input[name='mas']:checked");
-
-                if (!mau) {
-                    e.preventDefault();
-                    alert("Vui lòng chọn màu sắc!");
-                    return;
-                }
-
-                if (!size) {
-                    e.preventDefault();
-                    alert("Vui lòng chọn kích cỡ!");
-                }
-            });
-
-        });
-
-    });
-
-</script>

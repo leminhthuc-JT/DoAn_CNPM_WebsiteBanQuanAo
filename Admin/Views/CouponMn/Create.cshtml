@@ -1,0 +1,60 @@
+﻿@model GiamGia
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="card col-md-6 mx-auto mt-4 shadow">
+    <div class="card-header bg-success text-white">
+        <h4 class="m-0">Thêm Mã giảm giá mới</h4>
+    </div>
+    <div class="card-body">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">Mức giảm giá (%)</label>
+                <div class="input-group">
+                    @Html.EditorFor(model => model.mucgiam, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "1", @max = "100", @required = "required" } })
+                    <span class="input-group-text">%</span>
+                </div>
+                @Html.ValidationMessageFor(model => model.mucgiam, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">Ngày bắt đầu</label>
+                @Html.TextBoxFor(model => model.ngaybd, "{0:yyyy-MM-dd}", new
+                {
+                    @class = "form-control",
+                    @type = "date",
+                    @required = "required",
+                    @min = DateTime.Now.ToString("yyyy-MM-dd")
+                })
+                @Html.ValidationMessageFor(model => model.ngaybd, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">Ngày kết thúc</label>
+                @Html.TextBoxFor(model => model.ngaykt, "{0:yyyy-MM-dd}", new
+                {
+                    @class = "form-control",
+                    @type = "date",
+                    @required = "required",
+                    @min = DateTime.Now.ToString("yyyy-MM-dd")
+                })
+                @Html.ValidationMessageFor(model => model.ngaykt, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="mt-4 text-center">
+                <button type="submit" class="btn btn-success px-4">Lưu mã</button>
+                <a href="@Url.Action("Index")" class="btn btn-secondary px-4">Quay lại</a>
+            </div>
+        </div>
+        }
+    </div>
+</div>
+
