@@ -1,0 +1,103 @@
+﻿
+@{
+    ViewBag.Title = "Contact";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/Css/Contact.css" rel="stylesheet" />
+
+<div class="contact-page container-fluid p-0">
+    <!-- Nội dung chính -->
+    <section class="container my-5">
+        <br />
+        <br />
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert alert-success">
+                @TempData["Success"]
+            </div>
+        }
+
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger">
+                @ViewBag.Error
+            </div>
+        }
+        <div class="row g-5">
+            <!-- Thông tin liên hệ -->
+            <div class="col-md-5">
+                <div class="contact-box">
+                    <h3 class="mb-4">THÔNG TIN LIÊN HỆ</h3>
+
+                    <p>
+                        <i class="fa-solid fa-location-dot me-2"></i>
+                        140 Lê Trọng Tấn, Sơn Kỳ, Tân Phú, TP.HCM
+                    </p>
+
+                    <p>
+                        <i class="fa-solid fa-phone me-2"></i>
+                        Hotline: <b>0907 123 456</b>
+                    </p>
+
+                    <p>
+                        <i class="fa-solid fa-envelope me-2"></i>
+                        Email: <b>contact@tosixstore.vn</b>
+                    </p>
+
+                    <p>
+                        <i class="fa-solid fa-clock me-2"></i>
+                        8:00 – 21:00 (Thứ 2 – CN)
+                    </p>
+
+                    <hr />
+
+                    <h5 class="mb-3">KẾT NỐI VỚI CHÚNG TÔI</h5>
+                    <div class="social-icons">
+                        <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form liên hệ -->
+            <div class="col-md-7">
+                <div class="contact-box">
+                    <h3 class="mb-4">GỬI TIN NHẮN CHO CHÚNG TÔI</h3>
+
+                    @using (Html.BeginForm("Contact", "Home", FormMethod.Post))
+                    {
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <input type="text" name="FullName" class="form-control"
+                                       placeholder="Họ và tên *" required />
+                            </div>
+
+                            <div class="col-md-6">
+                                <input type="email" name="Email" class="form-control"
+                                       placeholder="Email *" required />
+                            </div>
+
+                            <div class="col-md-12">
+                                <input type="tel" name="Phone" class="form-control" placeholder="Số điện thoại" pattern="^(0[3|5|7|8|9])[0-9]{8}$" title="Số điện thoại phải đúng định dạng của Việt Nam (10 số)" />
+                            </div>
+
+                            <div class="col-md-12">
+                                <textarea name="Message" rows="5" class="form-control"
+                                          placeholder="Nội dung liên hệ *" required></textarea>
+                            </div>
+
+                            <div class="col-md-12 text-end">
+                                <button type="submit" class="btn px-4">
+                                    <i class="fa-solid fa-paper-plane me-2"></i>Gửi liên hệ
+                                </button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

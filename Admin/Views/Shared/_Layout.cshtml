@@ -32,7 +32,7 @@
                             <a class="nav-link" href="/Product/Index"> Products </a>
                         </li>
                         <li class="nav-item m-3 line">
-                            <a class="nav-link" href="#"> Contact </a>
+                            <a class="nav-link" href="@Url.Action("Contact","Home")"> Contact </a>
                         </li>
                         @if (Session["UserName"] != null)
                         {
@@ -55,7 +55,7 @@
                             </li>
 
                             <li class="nav-item m-3 line">
-                                <a class="nav-link" href="#">
+                                <a class="nav-link" href="@Url.Action("Index","Cart")">
                                     <i class="fa-solid fa-bag-shopping" style="font-size: 20px;"></i>
                                 </a>
                             </li>
