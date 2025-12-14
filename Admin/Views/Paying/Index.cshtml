@@ -632,6 +632,7 @@
         const vouchers = document.querySelectorAll(".voucher-item");
         const btn = document.getElementById("btnXemThem");
 
+<<<<<<< Updated upstream
         const SHOW_LIMIT = 2; // 1 hàng = 2 voucher (col-md-6)
 
         // Hiển thị mặc định
@@ -656,6 +657,32 @@
             });
 
             btn.innerText = expanded ? "Thu gọn" : "Xem thêm...";
+=======
+        function showDefault() {
+            vouchers.forEach((v, i) => {
+                if (i < LIMIT) {
+                    v.classList.add("show");
+                } else {
+                    v.classList.remove("show");
+                }
+            });
+        }
+
+        showDefault();
+
+        let expanded = false;
+
+        btn.addEventListener("click", function () {
+            expanded = !expanded;
+
+            if (expanded) {
+                vouchers.forEach(v => v.classList.add("show"));
+                btn.innerText = "Thu gọn";
+            } else {
+                showDefault();
+                btn.innerText = "Xem thêm";
+            }
+>>>>>>> Stashed changes
         });
     });
 
