@@ -336,7 +336,7 @@
 
 
             <div>
-                <form class="product-form">
+                <form class="product-form" action="/Cart/AddToCart" method="post">
                     <input type="hidden" id="masp" name="masp" value="@Model.masp" />
                     <input type="hidden" id="matk" name="matk" value="@Session["UserID"]" />
                     <label class="fw-bold mb-2">Màu sắc:</label>
@@ -372,7 +372,7 @@
                     @if (Session["UserID"] != null)
                     {
                         <div class="d-flex gap-3">
-                            <button class="btn btn-add-cart py-2 px-4 w-50" formaction="" formmethod="get">THÊM GIỎ HÀNG</button> <!--Làm trang giỏ hàng thì gắn link vào action-->
+                            <button class="btn btn-add-cart py-2 px-4 w-50" type="submit" >THÊM GIỎ HÀNG</button> <!--Làm trang giỏ hàng thì gắn link vào action-->
                             <button class="btn btn-buy-now py-2 px-4 w-50" formaction="/Paying/Index" formmethod="get">MUA NGAY</button>
                         </div>
                     }
