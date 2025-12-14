@@ -1,0 +1,100 @@
+﻿@model List<Admin.HoaDon>
+@{
+    ViewBag.Title = "Quản lý đơn hàng";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="card mt-4">
+    <div class="card-header bg-black text-white">
+        <h4 class="fw-bold m-0">Quản lý đơn hàng</h4>
+    </div>
+
+    <div class="card-body p-0">
+        <table class="table table-hover align-middle m-0">
+            <thead class="table-dark">
+                <tr>
+                    <th>Mã đơn</th>
+                    <th>Khách hàng</th>
+                    <th>Giảm giá</th>
+                    <th>Tổng tiền</th>
+                    <th>Ngày đặt</th>
+                    <th>Địa chỉ</th>
+                    <th>Trạng thái</th>
+                    <th>Thanh toán</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>#@item.mahd</td>
+                        <td>@item.TaiKhoan.tenkh</td>
+
+                        <td>
+                            @(item.GiamGia != null ? item.GiamGia.mucgiam + "%" : "—")
+                        </td>
+
+                        <td class="text-danger fw-bold">
+                            @string.Format("{0:N0} VNĐ", item.tongtien)
+                        </td>
+
+                        <td>@item.ngaylap</td>
+                        <td>@item.diachigiaohang</td>
+
+                        <!-- TRẠNG THÁI -->
+                        <td>
+                            @using (Html.BeginForm("UpdateStatus", "OrdersMn", FormMethod.Post))
+                            {
+                                @Html.Hidden("id", item.mahd)
+
+                                <select name="nextStatus"
+                                        class="form-select form-select-sm"
+                                        onchange="this.form.submit()">
+
+                                    <!-- TRẠNG THÁI HIỆN TẠI -->
+                                    <option selected disabled>
+                                        @item.tinhtrang
+                                    </option>
+
+                                    @* FLOW CHUYỂN TRẠNG THÁI *@
+                                    @if (item.tinhtrang == "Chờ xác nhận")
+                                    {
+                                        <option value="Đã xác nhận">Đã xác nhận</option>
+                                        <option value="Đã hủy">Đã hủy</option>
+                                    }
+                                    else if (item.tinhtrang == "Đã xác nhận")
+                                    {
+                                        <option value="Chờ giao hàng">Chờ giao hàng</option>
+                                    }
+                                    else if (item.tinhtrang == "Chờ giao hàng")
+                                    {
+                                        <option value="Đã hoàn thành">Đã hoàn thành</option>
+                                    }
+                                </select>
+                            }
+                        </td>
+
+                        <!-- THANH TOÁN -->
+                        <td>
+                            @if (item.dathanhtoan == true)
+                            {
+                                <span class="badge bg-success">Đã thanh toán</span>
+                            }
+                            else
+                            {
+                                using (Html.BeginForm("XacNhanThanhToan", "OrdersMn", FormMethod.Post))
+                                {
+                                    @Html.Hidden("id", item.mahd)
+                                    <button class="btn btn-sm btn-outline-success text-nowrap">
+                                        Thanh toán
+                                    </button>
+                                }
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

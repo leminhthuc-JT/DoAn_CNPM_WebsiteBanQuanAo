@@ -1,0 +1,50 @@
+﻿@model IEnumerable<GiamGia>
+@{
+    ViewBag.Title = "Quản lý Voucher";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="card mt-4">
+    <div class="card-header bg-black text-white d-flex justify-content-between align-items-center">
+        <h4 class="fw-bold m-0">Quản lý Voucher</h4>
+        <a href="@Url.Action("Create")" class="btn btn-success btn-sm">
+            <i class="fa-solid fa-plus"></i> Thêm voucher
+        </a>
+    </div>
+
+    <div class="card-body p-0">
+        <table class="table table-striped table-hover m-0">
+            <thead class="table-dark">
+                <tr>
+                    <th>Mã</th>
+                    <th>Mức giảm (%)</th>
+                    <th>Ngày bắt đầu</th>
+                    <th>Ngày kết thúc</th>
+                    <th class="text-center">Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>#@item.magg</td>
+                        <td>@item.mucgiam %</td>
+                        <td>@item.ngaybd.Value.ToString("dd/MM/yyyy")</td>
+                        <td>@item.ngaykt.Value.ToString("dd/MM/yyyy")</td>
+                        <td class="text-center">
+                            <a href="@Url.Action("Edit", new { id = item.magg })"
+                               class="btn btn-sm btn-outline-primary">
+                                <i class="fa-solid fa-pen"></i> Sửa
+                            </a>
+                            <a href="@Url.Action("Delete", new { id = item.magg })"
+                               onclick="return confirm('Xóa voucher này?')"
+                               class="btn btn-sm btn-outline-danger">
+                                <i class="fa-solid fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

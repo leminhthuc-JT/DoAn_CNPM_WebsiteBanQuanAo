@@ -142,8 +142,10 @@
     <Compile Include="Controllers\ClientMnController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\OrdersMnController.cs" />
     <Compile Include="Controllers\PayingController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\VouchersMnController.cs" />
     <Compile Include="CTHoaDon.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -462,6 +464,10 @@
     <Content Include="Views\ClientMn\Index.cshtml" />
     <Content Include="Views\ClientMn\Edit.cshtml" />
     <Content Include="Views\ClientMn\Delete.cshtml" />
+    <Content Include="Views\VouchersMn\Index.cshtml" />
+    <Content Include="Views\VouchersMn\Create.cshtml" />
+    <Content Include="Views\VouchersMn\Edit.cshtml" />
+    <Content Include="Views\OrdersMn\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
