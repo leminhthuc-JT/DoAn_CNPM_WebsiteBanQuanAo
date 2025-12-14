@@ -141,6 +141,7 @@
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\ClientMnController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\PayingController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="CTHoaDon.cs">
@@ -454,6 +455,8 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Account\Profile.cshtml" />
+    <Content Include="Views\Order\MyOrders.cshtml" />
+    <Content Include="Views\Order\ReviewOrder.cshtml" />
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\ClientMn\Index.cshtml" />

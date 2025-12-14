@@ -4,6 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     var lienquan = (List<SanPham>)ViewBag.LQ;
     var TH = ViewBag.TH;
+    var reviews = ViewBag.Reviews as List<BinhLuan>;
 }
 <style>
     /* Style cho phần tiêu đề */
@@ -372,16 +373,16 @@
                     @if (Session["UserID"] != null)
                     {
                         <div class="d-flex gap-3">
-                            <button class="btn btn-add-cart py-2 px-4 w-50" type="submit" >THÊM GIỎ HÀNG</button> <!--Làm trang giỏ hàng thì gắn link vào action-->
+                            <button class="btn btn-add-cart py-2 px-4 w-50" type="submit">THÊM GIỎ HÀNG</button> <!--Làm trang giỏ hàng thì gắn link vào action-->
                             <button class="btn btn-buy-now py-2 px-4 w-50" formaction="/Paying/Index" formmethod="get">MUA NGAY</button>
                         </div>
                     }
                     else
                     {
-                <div class="d-flex gap-3">
-                    <a href="/Account/Login" class="btn btn-add-cart py-2 px-4 w-50">THÊM GIỎ HÀNG</a>
-                    <a href="/Account/Login" class="btn btn-buy-now py-2 px-4 w-50">MUA NGAY</a>
-                </div>  
+                        <div class="d-flex gap-3">
+                            <a href="/Account/Login" class="btn btn-add-cart py-2 px-4 w-50">THÊM GIỎ HÀNG</a>
+                            <a href="/Account/Login" class="btn btn-buy-now py-2 px-4 w-50">MUA NGAY</a>
+                        </div>
                     }
                 </form>
             </div>
@@ -399,53 +400,49 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Phần Đánh giá (Review) -->
-    <div class="mt-5">
-        <div class="d-flex align-items-center mb-3">
-            <h5 class="fw-bold me-3 mb-0">Đánh giá:</h5>
-            <span class="text-warning fs-5">
-                <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>
-            </span>
-        </div>
+    @if (reviews != null && reviews.Any())
+    {
+        foreach (var r in reviews)
+        {
+            <div class="review-box mb-4">
+                <div class="d-flex">
+                    <!-- Avatar -->
+                    <div class="me-3">
+                        <img src="~/Content/Avatar/@(r.TaiKhoan.anhdaidien ?? "macdinh.png")"
+                             class="user-avatar"
+                             style="object-fit:cover;" />
+                    </div>
 
-        <!-- Khung review của User 1 -->
-        <div class="review-box mb-4">
-            <div class="d-flex">
-                <!-- Avatar -->
-                <div class="me-3">
-                    <div class="user-avatar"></div>
-                </div>
-                <!-- Nội dung -->
-                <div class="flex-grow-1">
-                    <h6 class="fw-bold mb-1">User 1:</h6>
-                    <p class="mb-2">Sản phẩm ok</p>
-
-                    <!-- Ảnh trong review -->
-                    <div class="review-thumbs d-flex mb-2">
-                        <img src="~/Content/ImageSP/@Model.anhchinh" />
-                        <img src="~/Content/ImageSP/@Model.anhchinh" />
-                        <img src="~/Content/ImageSP/@Model.anhchinh" />
+                    <!-- Nội dung -->
+                    <div class="flex-grow-1">
+                        <h6 class="fw-bold mb-1">@r.TaiKhoan.tenkh</h6>
+                        <p class="mb-2">@r.mota</p>
                     </div>
                 </div>
-            </div>
 
-            <!-- Sao đánh giá ở góc phải dưới cùng của box -->
-            <div class="text-end text-warning">
-                ★ ★ ★ ★ ★
+                <!-- Sao -->
+                <div class="text-end text-warning">
+                    @for (int i = 1; i <= 5; i++)
+                    {
+                        if (i <= r.sosao)
+                        {
+                            <span>★</span>
+                        }
+                        else
+                        {
+                            <span class="text-muted">★</span>
+                        }
+                    }
+                </div>
             </div>
-        </div>
-
-        <!-- Thanh Input phía dưới -->
-        <div class="input-bar">
-            <button class="btn btn-submit">Submit</button>
-            <input type="text" class="input-no-border" placeholder="Nhập câu hỏi" />
-
-            <div class="d-flex align-items-center fw-bold">
-                Your Account <span class="user-avatar ms-2" style="width: 25px; height: 25px;"></span>
-            </div>
-        </div>
-    </div>
+        }
+    }
+    else
+    {
+        <p class="text-muted">Chưa có đánh giá nào cho sản phẩm này.</p>
+    }
 
 
     <hr class="my-5" />

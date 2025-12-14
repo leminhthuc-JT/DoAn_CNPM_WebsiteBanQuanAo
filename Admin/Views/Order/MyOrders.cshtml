@@ -1,0 +1,82 @@
+﻿@model List<Admin.HoaDon>
+
+@{
+    ViewBag.Title = "Đơn hàng của tôi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5 pt-4">
+
+    <h4 class="fw-bold mb-4 text-center">ĐƠN HÀNG CỦA TÔI</h4>
+
+    <div class="card p-3">
+        <table class="table align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>Mã đơn</th>
+                    <th>Ngày đặt</th>
+                    <th>Địa chỉ giao</th>
+                    <th>Tổng tiền</th>
+                    <th>Trạng thái</th>
+                    <th class="text-center">Thao tác</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>#@item.mahd</td>
+
+                        <td>@(item.ngaylap.HasValue ? item.ngaylap.Value.ToString("dd/MM/yyyy") : "")</td>
+
+                        <td>@item.diachigiaohang</td>
+
+                        <td>
+                            @string.Format("{0:N0} VNĐ", item.tongtien)
+                        </td>
+
+                        <td>
+                            @item.tinhtrang
+                        </td>
+
+                        <td>
+                            <div class="d-flex gap-2 flex-wrap">
+                                @* NÚT HỦY ĐƠN *@
+                                @if (item.tinhtrang == "Chờ xác nhận")
+                                {
+                                    <a href="@Url.Action("Cancel", "Order", new { id = item.mahd })"
+                                       class="btn btn-sm btn-danger">
+                                        Hủy đơn
+                                    </a>
+                                }
+
+                                @* Đánh giá *@
+                                @if (item.tinhtrang == "Đã hoàn thành")
+                                {
+                                    <a href="@Url.Action("ReviewOrder","Order", new { mahd = item.mahd })"
+                                       class="btn btn-dark btn-sm">
+                                        Đánh giá
+                                    </a>
+                                }
+
+                                @* Đổi trả *@
+                                @if (item.tinhtrang == "Đã hoàn thành")
+                                {
+                                    using (Html.BeginForm("RequestReturn", "Order",
+                                           new { id = item.mahd }, FormMethod.Post))
+                                    {
+                                        <button class="btn btn-outline-secondary btn-sm">
+                                            Đổi trả
+                                        </button>
+                                    }
+                                }
+                            </div>
+                        </td>
+                        <td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
