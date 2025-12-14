@@ -1,11 +1,13 @@
-﻿using QRCoder;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Admin.Models;
+using QRCoder;
 
 namespace Admin.Controllers
 {
@@ -13,52 +15,47 @@ namespace Admin.Controllers
     {
         // GET: Paying
         private G6_QLBQAEntities db = new G6_QLBQAEntities();
-        public ActionResult Index(int matk = 0, int masp = 0, int mam = 0, int mas = 0, int quantity = 0, int search = 0, decimal ship = 0, int gg = 0, string tt = "")
+        public ActionResult Index(decimal ship = 0, int gg = 0, string tt = "")
         {
-            SanPham sp = db.SanPham.Where(x => x.masp == masp).FirstOrDefault();
-            TaiKhoan tk = db.TaiKhoan.Where(x => x.matk == matk).FirstOrDefault();
-            string anh = db.CTSanPham.Where(x => x.masp == masp && x.mam == mam && x.mas == mas).Select(x => x.link).FirstOrDefault();
-            string mau = db.mau.Where(x => x.mam == mam).Select(x => x.tenm).FirstOrDefault();
-            string size = db.size.Where(x => x.mas == mas).Select(x => x.tens).FirstOrDefault();
-            ViewBag.SL = quantity;
-            ViewBag.Mau = mau;
-            ViewBag.Size = size;
-            ViewBag.MaM = mam;
-            ViewBag.MaS = mas;
-            ViewBag.Ship = ship;
-            ViewBag.MaSP = masp;
-            ViewBag.MaTK = matk;
-            ViewBag.TK = tk;
-            GiamGia vou = new GiamGia();
+            var cart = Session["Cart"] as List<CartItem>;
+            if (cart == null || !cart.Any())
+                return RedirectToAction("Index", "Cart");
+
+            // Tổng tiền hàng
+            decimal tienHang = cart.Sum(x => x.ThanhTien);
+
+            // Voucher
+            GiamGia voucher = null;
             if (gg > 0)
-            {
-                vou = db.GiamGia.FirstOrDefault(x => x.magg == gg);
-            }
+                voucher = db.GiamGia.FirstOrDefault(x => x.magg == gg);
 
-            // GÁN MẶC ĐỊNH nếu không có voucher
-            if (vou == null)
-            {
-                vou = new GiamGia
-                {
-                    magg = 0,
-                    mucgiam = 0
-                };
-            }
+            int mucGiam = voucher?.mucgiam ?? 0;
+            decimal tienGiam = tienHang * mucGiam / 100;
+            decimal tongTien = tienHang + ship - tienGiam;
 
-            ViewBag.GiamGia = vou;
+            ViewBag.Cart = cart;
+            ViewBag.Ship = ship;
+            ViewBag.GiamGia = voucher;
             ViewBag.TT = tt;
-            ViewBag.Search = search;
-            //ViewBag.Gia = sp.giaban * quantity;
-            ViewBag.Anh = anh;
-            List<GiamGia> ggia = db.GiamGia.ToList();
-            if(search != 0)
+            ViewBag.TienHang = tienHang;
+            ViewBag.TienGiam = tienGiam;
+            ViewBag.TongTien = tongTien;
+
+            // thông tin user
+            if (Session["UserID"] == null)
             {
-                ggia = db.GiamGia.Where(x => x.magg == search).ToList();
+                return RedirectToAction("Login", "Account");
             }
 
-            ViewBag.GG = ggia;
-            return View(sp);
+            int matk = (int)Session["UserID"];
+            ViewBag.TK = db.TaiKhoan.Find(matk);
+
+            ViewBag.GG = db.GiamGia.ToList();
+
+            return View();
         }
+
+
 
         public ActionResult QRThanhToan(decimal soTien, string noiDung)
         {

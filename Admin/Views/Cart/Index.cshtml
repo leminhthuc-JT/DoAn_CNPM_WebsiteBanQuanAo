@@ -1,0 +1,65 @@
+﻿@using Admin.Models
+@model List<CartItem>
+
+<link href="~/Content/Css/Cart.css" rel="stylesheet" />
+
+
+<div class="container mt-5 pt-4">
+    <div class="cart-wrapper">
+
+        <h3 class="cart-title">Giỏ hàng</h3>
+
+        <table class="table cart-table">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <div class="cart-product">
+                            <img src="~/Content/ImageSP/@item.Image"
+                                 class="cart-img" />
+                            <span>@item.TenSP</span>
+                        </div>
+                    </td>
+
+                    <td class="cart-price">
+                        @string.Format("{0:N0}", item.Gia) VNĐ
+                    </td>
+
+                    <td class="cart-qty">
+                        @using (Html.BeginForm("Update", "Cart", FormMethod.Post, new { @class = "qty-form" }))
+                        {
+                            <button name="action" value="minus">−</button>
+                            <span>@item.SoLuong</span>
+                            <button name="action" value="plus">+</button>
+                            <input type="hidden" name="MaSP" value="@item.MaSP" />
+                        }
+                    </td>
+
+                    <td class="cart-total">
+                        @string.Format("{0:N0}", item.ThanhTien) VNĐ
+                    </td>
+
+                    <td class="cart-remove">
+                        @using (Html.BeginForm("Remove", "Cart"))
+                        {
+                            <input type="hidden" name="MaSP" value="@item.MaSP" />
+                            <button class="btn-remove">×</button>
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+
+        <div class="cart-summary">
+            <div>
+                Tổng tiền:
+                <span>@string.Format("{0:N0}", ViewBag.TongTien) VNĐ</span>
+            </div>
+
+            <a href="/Paying/Index" class="btn-checkout">
+                Thanh toán
+            </a>
+        </div>
+
+    </div>
+</div>
