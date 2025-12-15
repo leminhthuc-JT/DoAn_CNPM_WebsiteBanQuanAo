@@ -1,0 +1,70 @@
+﻿@model SanPham
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-8">
+        <div class="card border-danger shadow">
+            <div class="card-header bg-danger text-white">
+                <h4 class="m-0"><i class="fa-solid fa-triangle-exclamation"></i> XÁC NHẬN XÓA SẢN PHẨM</h4>
+            </div>
+            <div class="card-body">
+                <div class="text-center mb-4">
+                    <h5 class="text-danger">Bạn có chắc chắn muốn xóa sản phẩm này?</h5>
+                    <p class="text-muted fst-italic">Hành động này sẽ xóa sản phẩm khỏi danh sách hiển thị.</p>
+                </div>
+
+                <div class="row">
+                    <!-- Ảnh sản phẩm -->
+                    <div class="col-md-4 text-center">
+                        <img src="~/Content/ImagesSP/@Model.anhchinh"
+                             style="width: 100%; max-height: 250px; object-fit: contain; border: 1px solid #ddd; padding: 5px; border-radius: 5px;"
+                             onerror="this.src='~/Content/ImagesSP/no-image.png'" />
+                    </div>
+
+                    <!-- Thông tin chi tiết -->
+                    <div class="col-md-8">
+                        <table class="table table-borderless">
+                            <tr>
+                                <td class="fw-bold" style="width: 120px">Tên SP:</td>
+                                <td class="fs-5">@Model.tensp</td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">Mã SP:</td>
+                                <td>#@Model.masp</td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">Giá bán:</td>
+                                <td class="text-danger fw-bold">@String.Format("{0:0,0}", Model.giaban) VNĐ</td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">Danh mục:</td>
+                                <td>@(Model.DanhMuc != null ? Model.DanhMuc.tendm : "Chưa cập nhật")</td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">Tồn kho:</td>
+                                <td>@Model.soluong</td>
+                            </tr>
+                        </table>
+
+                        <!-- Hiển thị lỗi nếu xóa thất bại (do dính khóa ngoại) -->
+                        @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+                    </div>
+                </div>
+
+                <div class="mt-4 text-end border-top pt-3">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-danger px-4"><i class="fa-solid fa-trash"></i> Xác nhận Xóa</button>
+                        <a href="@Url.Action("Index")" class="btn btn-secondary px-4">Quay lại</a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

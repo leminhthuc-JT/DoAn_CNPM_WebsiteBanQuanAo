@@ -24,12 +24,12 @@
         <nav class="navbar navbar-expand fixed-top navbar-dark bg-black">
             <div class="navbar-overlay container align-items-center justify-content-around" style="height: 50px;">
                 <!-- Logo -->
-                <a class="navbar-brand w-25" href="@Url.Action("Index","Home")"><img src="~/Content/Image/logo_white.png" style="height: 70px;" /></a>
+                <a class="navbar-brand w-25" href="#"><img src="~/Content/Image/logo_white.png" style="height: 70px;" /></a>
 
                 <div class="navbar-collapse w-75">
                     <ul class="navbar-nav text-light">
                         <li class="nav-item m-3 line">
-                            <a class="nav-link" href="@Url.Action("Index","Admin")"> Home </a>
+                            <a class="nav-link" href="@Url.Action("DashBoard","Admin")"> Home </a>
                         </li>
                         @if (Session["UserName"] != null)
                         {
@@ -97,9 +97,9 @@
         <aside class="sidebar mt-4">
             <h3 class="fw-bold">Bảng điều khiển</h3>
             <ul class="category-list">
-                <li><a href="#">DashBoard</a></li>
+                <li><a href="@Url.Action("DashBoard","Admin")">DashBoard</a></li>
                 <li><a href="@Url.Action("Index","ClientMn")">Quản lý Tài khoản</a></li>
-                <li><a href="#">Quản lý kho hàng</a></li>
+                <li><a href="@Url.Action("Index","ProductMn")">Quản lý kho hàng</a></li>
                 <li><a href="@Url.Action("Index","OrdersMn")">Quản lý đơn hàng</a></li>
                 <li><a href="@Url.Action("Index","VouchersMn")">Quản lý mã giảm giá</a></li>
                 <li><a href="#">Cài đặt</a></li>

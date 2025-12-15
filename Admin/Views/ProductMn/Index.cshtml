@@ -1,0 +1,64 @@
+﻿@model IEnumerable<SanPham>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="card mt-4">
+    <div class="card-header bg-black text-white d-flex justify-content-between align-items-center">
+        <h4 class="fw-bold m-0">Kho Hàng Hoá (Sản phẩm)</h4>
+        <a href="@Url.Action("Create")" class="btn btn-success"><i class="fa-solid fa-plus"></i> Nhập hàng mới</a>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered table-hover align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>Ảnh</th>
+                    <th style="width: 25%">Tên sản phẩm</th>
+                    <th>Giá bán</th>
+                    <th>Kho</th>
+                    <th>Danh mục</th>
+                    <th>Thương hiệu</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="text-center">
+                            <img src="~/Content/ImageSP/@item.anhchinh" style="width: 60px; height: 60px; object-fit: cover; border: 1px solid #ddd;" />
+                        </td>
+                        <td>
+                            <div class="fw-bold">@item.tensp</div>
+                            <small class="text-muted">ID: @item.masp</small>
+                        </td>
+                        <td class="text-danger fw-bold">
+                            @String.Format("{0:0,0}", item.giaban) đ
+                        </td>
+                        <td>
+                            @if (item.soluong > 0)
+                            {
+                                <span class="badge bg-success">Còn @item.soluong</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger">Hết hàng</span>
+                            }
+                        </td>
+                        <td>@(item.DanhMuc != null ? item.DanhMuc.tendm : "Chưa phân loại")</td>
+                        <td>@(item.ThuongHieu != null ? item.ThuongHieu.tenth : "N/A")</td>
+                        <td>
+                            <a href="@Url.Action("Edit", new { id = item.masp })" class="btn btn-sm btn-primary" title="Sửa thông tin"><i class="fa-solid fa-pen"></i></a>
+                            
+                            <a href="#" class="btn btn-sm btn-info text-white" title="Quản lý chi tiết (Size/Màu)"><i class="fa-solid fa-list"></i></a>
+                            <a href="@Url.Action("Delete", new { id = item.masp })" class="btn btn-sm btn-danger" title="Xóa"><i class="fa-solid fa-trash"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
