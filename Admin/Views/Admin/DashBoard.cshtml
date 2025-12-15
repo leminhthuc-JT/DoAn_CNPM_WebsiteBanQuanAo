@@ -1,0 +1,198 @@
+﻿@model Admin.Models.DashboardViewModel
+
+@{
+    ViewBag.Title = "DashBoard";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<!-- CDN Chart.js để vẽ biểu đồ -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<div class="container-fluid p-0">
+    <h3 class="fw-bold mb-4">Tổng quan hệ thống</h3>
+
+    <!-- ROW 1: CÁC THẺ THỐNG KÊ (CARDS) -->
+    <div class="row g-3 mb-4">
+        <!-- Doanh thu -->
+        <div class="col-md-3">
+            <div class="card bg-primary text-white shadow h-100">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="card-title">TỔNG DOANH THU</h6>
+                        <h3 class="fw-bold m-0">@String.Format("{0:0,0}", Model.TongDoanhThu) đ</h3>
+                    </div>
+                    <div class="fs-1"><i class="fa-solid fa-money-bill-wave"></i></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Đơn hàng -->
+        <div class="col-md-3">
+            <div class="card bg-success text-white shadow h-100">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="card-title">ĐƠN HÀNG</h6>
+                        <h3 class="fw-bold m-0">@Model.SoLuongDonHang</h3>
+                    </div>
+                    <div class="fs-1"><i class="fa-solid fa-cart-shopping"></i></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Khách hàng -->
+        <div class="col-md-3">
+            <div class="card bg-warning text-white shadow h-100">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="card-title">KHÁCH HÀNG</h6>
+                        <h3 class="fw-bold m-0">@Model.SoLuongKhachHang</h3>
+                    </div>
+                    <div class="fs-1"><i class="fa-solid fa-users"></i></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mã giảm giá -->
+        <div class="col-md-3">
+            <div class="card bg-info text-white shadow h-100">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="card-title">COUPON HIỆU LỰC</h6>
+                        <h3 class="fw-bold m-0">@Model.SoMaGiamGia</h3>
+                    </div>
+                    <div class="fs-1"><i class="fa-solid fa-ticket"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ROW 2: BIỂU ĐỒ VÀ CẢNH BÁO KHO -->
+    <div class="row g-3 mb-4">
+        <!-- Cột trái: Biểu đồ doanh thu -->
+        <div class="col-md-8">
+            <div class="card shadow h-100">
+                <div class="card-header bg-white fw-bold">
+                    <i class="fa-solid fa-chart-line"></i> Biểu đồ doanh thu 6 tháng gần nhất
+                </div>
+                <div class="card-body">
+                    <canvas id="revenueChart" style="max-height: 300px;"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cột phải: Cảnh báo Kho Hàng -->
+        <div class="col-md-4">
+            <div class="card shadow h-100 border-danger">
+                <div class="card-header bg-danger text-white fw-bold d-flex justify-content-between">
+                    <span><i class="fa-solid fa-triangle-exclamation"></i> Sắp hết hàng (@Model.SanPhamSapHetHang)</span>
+                    <a href="@Url.Action("Index", "QuanLySanPham")" class="text-white small" style="text-decoration: underline">Xem tất cả</a>
+                </div>
+                <div class="card-body p-0">
+                    <table class="table table-hover table-striped mb-0">
+                        <thead>
+                            <tr>
+                                <th>Sản phẩm</th>
+                                <th class="text-center">SL</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var sp in Model.ListSapHetHang)
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="~/Content/ImagesSP/@sp.anhchinh" style="width:30px;height:30px;margin-right:10px;object-fit:cover" />
+                                            <span class="text-truncate" style="max-width: 150px;">@sp.tensp</span>
+                                        </div>
+                                    </td>
+                                    <td class="text-center text-danger fw-bold">@sp.soluong</td>
+                                </tr>
+                            }
+                            @if (Model.ListSapHetHang.Count == 0)
+                            {
+                                <tr><td colspan="2" class="text-center text-success py-3">Kho hàng ổn định</td></tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ROW 3: ĐƠN HÀNG MỚI NHẤT -->
+    <div class="card shadow">
+        <div class="card-header bg-white fw-bold">
+            <i class="fa-solid fa-clock-rotate-left"></i> Đơn hàng mới nhất
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Mã ĐH</th>
+                        <th>Khách hàng</th>
+                        <th>Ngày đặt</th>
+                        <th>Tổng tiền</th>
+                        <th>Trạng thái</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.DonHangMoi)
+                    {
+                        <tr>
+                            <td>#@item.mahd</td> <!-- Sửa MaHD theo đúng Model của bạn -->
+                            <td>
+                                <!-- Giả sử HoaDon có quan hệ với TaiKhoan -->
+                                @(item.TaiKhoan != null ? item.TaiKhoan.tenkh : "Khách vãng lai")
+                            </td>
+                            <td>@string.Format("{0:dd/MM/yyyy HH:mm}", item.ngaylap)</td>
+                            <td class="fw-bold text-success">@string.Format("{0:0,0}", item.tongtien) đ</td>
+                            <td>
+                                <!-- Ví dụ hiển thị trạng thái -->
+                                <span class="badge bg-info">Mới đặt</span>
+                            </td>
+                            <td>
+                                <a href="#" class="btn btn-sm btn-outline-primary">Xem chi tiết</a>
+                            </td>
+                        </tr>
+                    }
+                    @if (Model.DonHangMoi.Count == 0)
+                    {
+                        <tr><td colspan="6" class="text-center py-3">Chưa có đơn hàng nào</td></tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- SCRIPT VẼ BIỂU ĐỒ (Dữ liệu mẫu) -->
+<script>
+    const ctx = document.getElementById('revenueChart');
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
+            datasets: [{
+                label: 'Doanh thu (Triệu VNĐ)',
+                data: [12, 19, 15, 25, 22, 30], // Sau này bạn có thể thay bằng dữ liệu thật từ ViewBag
+                borderWidth: 2,
+                borderColor: '#0d6efd',
+                backgroundColor: 'rgba(13, 110, 253, 0.1)',
+                fill: true,
+                tension: 0.4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+
